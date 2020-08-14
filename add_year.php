@@ -14,7 +14,15 @@ require_once('connection.php');
                 "year" => $_POST['year'],
                 "status" => 1,
             ]);
-            echo "Success";
+
+            $getdata = $db ->select('year','*');
+            
+            for($i=0;$i<count($getdata);$i++){
+                $result[$i]['year'] = $getdata[$i]['year'];
+                $result[$i]['status'] = $getdata[$i]['status'];
+            }
+
+            echo json_encode($result);
         }else{
             echo "Error Dulpicate Data";
         }

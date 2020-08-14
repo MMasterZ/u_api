@@ -3,6 +3,14 @@ require_once('connection.php');
 
 $test = $db -> select("year","*");
 
-echo $test;
+
+for($i = 0;$i < count($test);$i++){
+
+  $result[$i]['year'] = $test[$i]['year'];
+  $result[$i]['status'] = $test[$i]['status'];
+
+}
+
+echo json_encode($result);
 
 ?>
