@@ -1,7 +1,7 @@
 <?php 
 include 'connection.php';
 
-$check_sector_code_exists = $db -> count("sectorxx","*");
+$check_sector_code_exists = $db -> count("sector","*");
 
 if($check_sector_code_exists)
 {
@@ -11,7 +11,7 @@ while(($items = fgetcsv($file)))
 {
   $sector_id = $items[1];
   $name = $items[0];
-  $db -> insert("sectorxx",
+  $db -> insert("sector",
   [
     "id" => $sector_id,
     "name" => $name
@@ -21,7 +21,7 @@ while(($items = fgetcsv($file)))
 fclose($file);
 }else{
 
-    $db->create("sectorxx",[
+    $db->create("sector",[
     "id" => [
 		"INT",
 		"NOT NULL",
@@ -39,7 +39,7 @@ while(($items = fgetcsv($file)))
 {
   $sector_id = $items[1];
   $name = $items[0];
-  $db -> insert("sectorxx",
+  $db -> insert("sector",
   [
     "id" => $sector_id,
     "name" => $name
