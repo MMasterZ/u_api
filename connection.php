@@ -19,7 +19,7 @@ $db = new Medoo([
 	'database_name' => 'untest',
 	'server' => 'localhost',
 	'username' => 'root',
-	'password' => '12345678',
+	'password' => '123456789',
 ]);
  
 // $database->insert("account", [

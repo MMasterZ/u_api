@@ -1,13 +1,12 @@
 <?php 
 require_once('connection.php');
 
-$test = $db -> select("year","*");
+$getyear = $db -> select("year","*");
 
+for($i = 0;$i < count($getyear);$i++){
 
-for($i = 0;$i < count($test);$i++){
-
-  $result[$i]['year'] = $test[$i]['year'];
-  $result[$i]['status'] = $test[$i]['status'];
+  $result[$i]['year'] = $getyear[$i]['year'];
+  $result[$i]['status'] = $getyear[$i]['status'];
 
 }
 
