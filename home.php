@@ -1,7 +1,4 @@
 
-<?php 
-include('connect/connect.php');
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,20 +7,6 @@ include('connect/connect.php');
     <title>Document</title>
 </head>
 <body>
-
-<?php
-$query = "SELECT * FROM test";
-
-$result = mysqli_query($con,$query);
-
-while($row = mysqli_fetch_array($result)){
-
-    echo $row['name'];
-
-}
-
-?>
-  
 
     <div style='border:1px solid#f00;'>
 asdsadsa

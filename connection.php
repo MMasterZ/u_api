@@ -6,6 +6,8 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header('Content-type: application/x-www-form-urlencoded');
 header('Content-type: application/json');
 
+date_default_timezone_set("Asia/Bangkok");
+
 // If you installed via composer, just use this code to require autoloader on the top of your projects.
 // require 'vendor/autoload.php';
 require("Medoo.php");
@@ -19,7 +21,7 @@ $db = new Medoo([
 	'database_name' => 'untest',
 	'server' => 'localhost',
 	'username' => 'root',
-	'password' => '123456789',
+	'password' => '',
 ]);
  
 // $database->insert("account", [

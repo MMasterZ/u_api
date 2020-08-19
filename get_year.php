@@ -1,15 +1,24 @@
 <?php 
 require_once('connection.php');
 
-$getyear = $db -> select("year","*");
+$checkdb = $db -> count("year","*");
 
-for($i = 0;$i < count($getyear);$i++){
+if($checkdb){
+  
+  $getyear = $db -> select("year","*");
 
-  $result[$i]['year'] = $getyear[$i]['year'];
-  $result[$i]['status'] = $getyear[$i]['status'];
+    for($i = 0;$i < count($getyear);$i++){
+      $result[$i]['year'] = $getyear[$i]['year'];
+      $result[$i]['status'] = $getyear[$i]['status'];
+    }
+
+  echo json_encode($result);
+
+}else{
+
+  echo "[]";
 
 }
 
-echo json_encode($result);
 
 ?>

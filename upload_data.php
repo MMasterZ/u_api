@@ -1,8 +1,6 @@
 <?php 
 require_once('connection.php');
 
-$_POST = json_decode(file_get_contents("php://input"),true);
-
 for($i = 0;$i < count($_POST);$i++){
     
     $source_country = $_POST[$i]['source_country'];
@@ -24,6 +22,8 @@ for($i = 0;$i < count($_POST);$i++){
     ]);
 
 }
+
+
 
 echo "Success";
 
