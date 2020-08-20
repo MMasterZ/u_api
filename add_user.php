@@ -11,7 +11,8 @@ require_once('connection.php');
 			$db -> insert('account',[
 					"username" => $_POST['username'],
 					"email" => $_POST['email'],
-					"password" => $_POST['password']
+					"password" => $_POST['password'],
+					"status" => "user"
 			]);
 
 				$getdata = $db ->select('account','*');
