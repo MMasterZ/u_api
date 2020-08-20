@@ -1,31 +1,42 @@
 <?php 
-require_once('connection.php');
+require "connection.php";
 
-for($i = 0;$i < count($_POST);$i++){
-    
-    $source_country = $_POST[$i]['source_country'];
-    $exp_country = $_POST[$i]['exp_country'];
-    $exp_sector = $_POST[$i]['exp_sector'];
-    $imp_country = $_POST[$i]['imp_country'];
-    $variable = $_POST[$i]['variable'];
-    $value = $_POST[$i]['value'];
-    $year = $_POST[$i]['year'];
+$sqli = new mysqli("localhost", "root", "","test");
 
-    $db -> insert('test',[
-        "source_country" => $source_country,
-        "exp_country" => $exp_country,
-        "exp_sector" => $exp_sector,
-        "imp_country" => $imp_country,
-        "variable" => $variable,
-        "value" => $value,
-        "year" => $year
-    ]);
+$fname = $_FILES['file']['tmp_name'];
 
-}
+$real_name = $_FILES['file']['name'];
+
+
+$uploads_dir = "./uploads";
 
 
 
-echo "Success";
+move_uploaded_file($fname, "$uploads_dir/$real_name");
+
+
+
+$real_file_destination = $uploads_dir . "/" . $real_name;
+
+
+echo $real_file_destination;
+
+// if(file_exists($real_file_destination)){
+//     echo "EXISTS";
+
+// }else{
+//     echo "NOT EXISTS";
+
+// }
+
+
+
+
+$sql = "load data local infile '" . $real_file_destination . "' into table country_list fields terminated by ','  optionally enclosed by '\"' ignore 1 lines (col1,col2,col3,col4,col5,col6,col7)";
+
+mysqli_query($sqli,$sql) or die(mysqli_error($sqli));
+
+
 
 
 ?>
