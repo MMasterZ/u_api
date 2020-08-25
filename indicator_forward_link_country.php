@@ -31,7 +31,7 @@ for($i=0;$i< count($value);$i++){
     $result[$i]['exp_sector'] = $sector_data[$sector];
     $result[$i]['imp_country'] = $value[$i]['imp_country'];
     $result[$i]['variable_set'] = "-";
-    $result[$i]['value'] = $value[$i]['sum'];
+    $result[$i]['value'] = round($value[$i]['sum'],2);
     $result[$i]['year'] = $year;
     $result[$i]['indicator'] = 'Forward_link_country';
 }

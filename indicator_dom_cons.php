@@ -34,7 +34,7 @@ $result['exp_country'] = $exp_country;
 $result['exp_sector'] = $sector_data[$sector];
 $result['imp_country'] = $imp_country;
 $result['variable_set'] = "-";
-$result['value'] = $value;
+$result['value'] = round($value,2);
 $result['year'] = $year;
 $result['indicator'] = 'Dom_cons';
 

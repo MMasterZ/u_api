@@ -23,7 +23,7 @@ for($i=0;$i< count($value);$i++){
     $result[$i]['exp_country'] = $exp_country;
     $result[$i]['exp_sector'] = $value[$i]['exp_sector'];
     $result[$i]['imp_country'] = $imp_country;
-    $result[$i]['value'] = $value[$i]['sum'];
+    $result[$i]['value'] = round($value[$i]['sum'],2);
     $result[$i]['year'] = $year;
     $result[$i]['indicator'] = 'Forward_link_sector';
 }

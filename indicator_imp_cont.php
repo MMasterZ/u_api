@@ -32,7 +32,7 @@ if($sector == 0){
 $result['exp_country'] = $exp_country;
 $result['exp_sector'] = $sector_data[$sector];
 $result['imp_country'] = $imp_country;
-$result['value'] = $value;
+$result['value'] = round($value,2);
 $result['year'] = $year;
 $result['indicator'] = 'Imp_cont';
 

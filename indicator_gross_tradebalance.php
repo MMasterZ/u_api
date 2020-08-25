@@ -78,7 +78,7 @@ $result['imp_country'] = $imp_country;
 // $result['value1'] = $value1;
 // $result['value_gross'] = $value_gross;
 $result['variable_set'] = "-";
-$result['value'] = $value_f;
+$result['value'] = round($value_f,2);
 $result['year'] = $year;
 $result['indicator'] = 'Gross_tradebalance';
 
