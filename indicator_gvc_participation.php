@@ -11,16 +11,17 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 $sector = $_GET['sector'];
+$tableName = $exp_country . "_" . $year;
 
 if($sector == 0){
-    $valueA = $db->sum("country_data","value",[
+    $valueA = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
     variable => ['DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3']
 ]);
 } else {
-    $valueA = $db->sum("country_data","value",[
+    $valueA = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
@@ -30,14 +31,14 @@ if($sector == 0){
 }
 
 if($sector == 0){
-    $valueB = $db->sum("country_data","value",[
+    $valueB = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
     variable => ['MVA_FIN', 'MVA_INT', 'OVA_FIN', 'OVA_INT']
 ]);
 } else {
-    $valueB = $db->sum("country_data","value",[
+    $valueB = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
@@ -47,14 +48,14 @@ if($sector == 0){
 }
 
 if($sector == 0){
-    $valueC = $db->sum("country_data","value",[
+    $valueC = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
     variable => ['DDC_FIN', 'DDC_INT', 'MDC', 'ODC']
 ]);
 } else {
-    $valueC = $db->sum("country_data","value",[
+    $valueC = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
@@ -65,14 +66,14 @@ if($sector == 0){
 
 
 if($sector == 0){
-    $value_gross = $db->sum("country_data","value",[
+    $value_gross = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
     variable => ['total_export']
 ]);
 } else {
-    $value_gross = $db->sum("country_data","value",[
+    $value_gross = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,

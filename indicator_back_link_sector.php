@@ -12,10 +12,10 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $source_country = $_GET['source_country'];
 $year = $_GET['year'];
+$tableName = $exp_country . "_" . $year;
 
 
-
-$sql  = "select sum(value) as sum,source_country,exp_country,exp_sector, imp_country  from country_data 
+$sql  = "select sum(value) as sum,source_country,exp_country,exp_sector, imp_country  from " . $tableName . "  
 where exp_country='" . $exp_country. "'and imp_country = '". $imp_country . "'and source_country = '". $source_country ."' and year = " . $year ." and (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by exp_sector" ;
 $value = $db->query($sql)->fetchAll();
 

@@ -11,16 +11,18 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 $sector = $_GET['sector'];
+$tableName = $exp_country . "_" . $year;
+$tableName2 = $imp_country . "_" . $year;
 
 if($sector == 0){
-    $value = $db->sum("country_data","value",[
+    $value = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
     variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1' , 'DVA_INTrex2', 'DVA_INTrex3']
 ]);
 } else {
-    $value = $db->sum("country_data","value",[
+    $value = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
@@ -30,14 +32,14 @@ if($sector == 0){
 }
 
 if($sector == 0){
-    $value1 = $db->sum("country_data","value",[
+    $value1 = $db->sum($tableName2,"value",[
     exp_country =>$imp_country,
     imp_country =>$exp_country ,
     year => $year,
      variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1' , 'DVA_INTrex2', 'DVA_INTrex3']
 ]);
 } else {
-    $value1 = $db->sum("country_data","value",[
+    $value1 = $db->sum($tableName2,"value",[
     exp_country =>$imp_country,
     imp_country => $exp_country,
     year => $year,
@@ -47,14 +49,14 @@ if($sector == 0){
 }
 
 if($sector == 0){
-    $value_gross = $db->sum("country_data","value",[
+    $value_gross = $db->sum($tableName,"value",[
    exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
      variable => ['total_export']
 ]);
 } else {
-    $value_gross = $db->sum("country_data","value",[
+    $value_gross = $db->sum($tableName,"value",[
    exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,

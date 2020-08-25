@@ -10,10 +10,11 @@ require_once('sector_data.php');
 $exp_country = $_GET['exp_country'];
 $sector = $_GET['sector'];
 $year = $_GET['year'];
+$tableName = $exp_country . "_" . $year;
 
 
 if($sector == 0){
-$sql  = "select sum(value) as sum,exp_country, imp_country  from country_data 
+$sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . "  
 where exp_country='" . $exp_country. "' and year = " . $year ." and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by imp_country" ;
 $value = $db->query($sql)->fetchAll();
 

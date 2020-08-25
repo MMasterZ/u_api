@@ -12,18 +12,18 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $sector = $_GET['sector'];
 $year = $_GET['year'];
-
+$tableName = $exp_country . "_" . $year;
 
 
 if($sector == 0){
-    $value = $db->sum("country_data","value",[
+    $value = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
     variable => ['total_export']
 ]);
 } else {
-    $value = $db->sum("country_data","value",[
+    $value = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,

@@ -11,16 +11,17 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 $sector = $_GET['sector'];
+$tableName = $exp_country . "_" . $year;
 
 if($sector == 0){
-    $value = $db->sum("country_data","value",[
+    $value = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
     variable => ['DVA_INTrex1', 'DVA_INTrex2','DVA_INTrex3']
 ]);
 } else {
-    $value = $db->sum("country_data","value",[
+    $value = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
