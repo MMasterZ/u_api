@@ -13,7 +13,7 @@ require_once('connection.php');
 
 		$db->delete('upload_log',
 		[ "AND" => [
-				"data_year" => $_POST['year'],
+				"year" => $_POST['year'],
 				"country" => $_POST['country']
 			]
 		]);
@@ -27,8 +27,8 @@ require_once('connection.php');
 					for($i = 0;$i < count($getdata);$i++){
 						$result[$i]['id'] = $getdata[$i]['id'];
 						$result[$i]['country'] = $getdata[$i]['country'];
-						$result[$i]['data_year'] = $getdata[$i]['data_year'];
-						$result[$i]['lastUpdate'] = $getdata[$i]['lastUpdate'];
+						$result[$i]['year'] = $getdata[$i]['year'];
+						$result[$i]['last_update'] = $getdata[$i]['last_update'];
 					}
 
 				echo json_encode($result);
