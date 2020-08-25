@@ -21,7 +21,8 @@ require_once('connection.php');
 					$result[$i]['id'] = $getdata[$i]['id'];
 					$result[$i]['username'] = $getdata[$i]['username'];
 					$result[$i]['email'] = $getdata[$i]['email'];
-					$result[$i]['password'] = $getdata[$i]['password'];
+                    $result[$i]['password'] = $getdata[$i]['password'];
+                    $result[$i]['status'] = $getdata[$i]['status'];
 				}
 
 				echo json_encode($result);

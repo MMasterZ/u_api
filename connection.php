@@ -8,6 +8,8 @@ header('Content-type: application/json');
 
 date_default_timezone_set("Asia/Bangkok");
 
+
+
 // If you installed via composer, just use this code to require autoloader on the top of your projects.
 // require 'vendor/autoload.php';
 require("Medoo.php");
@@ -18,12 +20,13 @@ use Medoo\Medoo;
 $db = new Medoo([
 	// required
 	'database_type' => 'mysql',
-	'database_name' => 'untest',
+	'database_name' => 'thaiawes_unescap',
 	'server' => 'localhost',
-	'username' => 'root',
-	'password' => '',
+	'username' => 'thaiawes_admin',
+	'password' => 'chomart12',
 ]);
- 
+
+// phpinfo();
 // $database->insert("account", [
 // 	"user_name" => "foo",
 // 	"email" => "foo@bar.com"

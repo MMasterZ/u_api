@@ -11,7 +11,7 @@ require_once('connection.php');
 		if(empty($check)){
 				$db -> insert('year',[
 						"year" => $_POST['year'],
-						"status" => 1,
+						"status" => 0,
 				]);
 
 				$checkdb = $db -> count("year","*");
