@@ -5,7 +5,9 @@ $checkdb = $db -> count("year","*");
 
 if($checkdb){
   
-  $getyear = $db -> select("year","*");
+  $getyear = $db -> select("year","*",[
+  "ORDER" => ["year" => 'ASC']
+]);
 
     for($i = 0;$i < count($getyear);$i++){
       $result[$i]['year'] = $getyear[$i]['year'];
