@@ -11,7 +11,7 @@ if($checkdb){
       $result[$i]['id'] = $getdata[$i]['id'];
       $result[$i]['country'] = $getdata[$i]['country'];
       $result[$i]['year'] = $getdata[$i]['year'];
-      $result[$i]['lastUpdate'] = $getdata[$i]['lastUpdate'];
+      $result[$i]['last_update'] = $getdata[$i]['last_update'];
     }
 
   echo json_encode($result);

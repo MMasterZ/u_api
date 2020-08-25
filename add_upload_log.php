@@ -10,7 +10,7 @@ $currentdate = date("d/m/Y");
 $db -> insert("upload_log",[
     "country" => $country,
     "year" => $datayear,
-    "lastUpdate" => $currentdate
+    "last_update" => $currentdate
 ]);
 
 echo "Success";
