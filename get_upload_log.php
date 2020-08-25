@@ -10,7 +10,7 @@ if($checkdb){
     for($i = 0;$i < count($getdata);$i++){
       $result[$i]['id'] = $getdata[$i]['id'];
       $result[$i]['country'] = $getdata[$i]['country'];
-      $result[$i]['data_year'] = $getdata[$i]['data_year'];
+      $result[$i]['year'] = $getdata[$i]['year'];
       $result[$i]['lastUpdate'] = $getdata[$i]['lastUpdate'];
     }
 
