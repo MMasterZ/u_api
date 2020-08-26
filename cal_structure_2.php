@@ -21,8 +21,8 @@ region =>$region
 
 for($i=0; $i<count($country_data);$i++){
   $imp_country = $country_data[$i];
-
-  $result[$i]['imp_country'] = $imp_country;
+$area = $db->select("country_list","name",["iso"=>$imp_country]);
+  $result[$i]['imp_country'] =$area[0];
 
   /// calculation of imp cons
 if($sector == 0){
