@@ -10,9 +10,11 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 
+$table_name = $exp_country . "_" . $year;
 
 
-$sql  = "select sum(value) as sum,exp_sector  from country_data 
+
+$sql  = "select sum(value) as sum,exp_sector  from " . $table_name ." 
 where exp_country='" . $exp_country. "' and imp_country = '". $imp_country  ."' and year = " . $year ." and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by exp_sector" ;
 $value = $db->query($sql)->fetchAll();
 
