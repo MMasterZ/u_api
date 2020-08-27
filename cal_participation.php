@@ -25,6 +25,8 @@ region =>$region
 
 for($i=0; $i<count($country_data);$i++){
   $exp_country2 = $country_data[$i];
+$area = $db->select("country_list","name",["iso"=>$exp_country2]);
+  $result[$i]['country'] =$area[0];
   $table3_name = $exp_country2 . "_" . $year;
   
   //Forward
@@ -51,7 +53,7 @@ for($i=0; $i<count($country_data);$i++){
   $value2 = $db->query($sql)->fetchAll(); 
   
   }
-  $result[$i]['country'] = $exp_country2;
+  
   $result[$i]['forward'] = round($value1[0]['sum']/$value2[0]['sum']*100,2);
 
   //Backward
