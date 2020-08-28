@@ -1,0 +1,19 @@
+<?php 
+///imp_country = import country ส่งมาเป็นรหัสประเทศ 3 ตัว
+//exp_country = export country ส่งมาเป็นรหัสประเทศ 3 ตัว
+//source_country = source countrh ส่งมาเป็นรหัสประเทศ 3 ตัว
+//year = ปี ส่งเป็น ค.ศ. 2017
+
+require_once('connection.php');
+require_once('sector_data.php');
+
+$imp_country = $_GET['imp_country'];
+$exp_country = $_GET['exp_country'];
+$source_country = $_GET['source_country'];
+$year = $_GET['year'];
+$tableName = $exp_country . "_" . $year;
+
+
+
+ echo json_encode($result);
+?>
