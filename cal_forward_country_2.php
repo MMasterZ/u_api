@@ -26,7 +26,7 @@ region =>$region
 for($i=0; $i<count($country_data);$i++){
   $imp_country = $country_data[$i];
   $area = $db->select("country_list","name",["iso"=>$imp_country]);
-  $result[$i]['country'] =$area[0];
+  // $result[$i]['country'] =$area[0];
   $tableName = $imp_country . "_" . $year;
 
   if($sector == 0){
@@ -50,29 +50,17 @@ if($sector == 0){
   ]);  
 }
 
-print_r($value);
+for($j=0;$j<count($value);$j++){
+  $result[$i][$j]['exp_country'] = $area[0];
+    $area2 = $db->select("country_list",["name","area"],["iso"=>$value[$j]['imp_country']]);
+  $result[$i][$j]['imp_country'] =$area2[0]['name'];
+  $result[$i][$j]['area'] = $area2[0]['area'];
+  $result[$i][$j]['value'] = round($value[$j]['sum']/$value2*100,2);
+
+}
 
 }
 
 
-
-
-
-
-
-// for($i=0;$i< count($value);$i++){
-//      $area = $db->select("country_list",["area","name"],["iso"=>$value[$i]['imp_country']]);
-//      If($area[0]['name'] == 'Rest of the World'){
-//         $result[$i]['name'] = "Other";
-//      } else {
-//           $result[$i]['name'] = $area[0]['name'];
-//      }
-//      $result[$i]['parent'] =  $area[0]['area'];
-    
-    
-//     $result[$i]['value'] = round($value[$i]['sum'],2);
-
-// }
-
-//  echo json_encode($result);
+ echo json_encode($result);
 ?>
