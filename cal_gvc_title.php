@@ -42,12 +42,11 @@ $export1 = $db->sum($tableName,"value",[
 ]);
 
 
-
-if($export1 > $import1){
-    $greensize = round($import1/$export1*100);
+if($import1> $export1){
+    $greensize = round($export1/$import1*100);
     $redsize = 100;
 } else {
-    $redsize = round($export1/$import1*100);
+    $redsize = round($import1/$export1*100);
     $greensize = 100;
 }
 
