@@ -15,13 +15,11 @@ if($sector == 0){
     $value1 = $db->sum($table_name,"value",[
       
     imp_country => $imp_country,
-    year => $year,
     variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3']
 ]);
 } else {
     $value1 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
-    year => $year,
     variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3'],
     exp_sector=>$sector_data[$sector],
   ]);  
@@ -30,15 +28,12 @@ if($sector == 0){
 /// calculation of imp_country = $exp_country
 if($sector == 0){
     $value2 = $db->sum($table2_name,"value",[
-
     imp_country => $exp_country,
-    year => $year,
     variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3']
 ]);
 } else {
     $value2 = $db->sum($table2_name,"value",[
     imp_country => $exp_country,
-    year => $year,
     variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3'],
     exp_sector=>$sector_data[$sector],
   ]);  
@@ -46,17 +41,13 @@ if($sector == 0){
 
 /// calculation of total_export
 if($sector == 0){
-    $value_total = $db->sum($table_name,"value",[
-    exp_country => $exp_country,  
+    $value_total = $db->sum($table_name,"value",[ 
     imp_country => $imp_country,
-    year => $year,
     variable => ['total_export']
 ]);
 } else {
     $value_total = $db->sum($table_name,"value",[
-    exp_country => $exp_country,  
     imp_country => $imp_country,
-    year => $year,
     variable => ['total_export'],
     exp_sector=>$sector_data[$sector],
   ]);  
@@ -70,13 +61,11 @@ if($sector == 0){
     $value1 = $db->sum($table_name,"value",[
 
     imp_country => $imp_country,
-    year => $year,
     variable => ['total_export']
 ]);
 } else {
     $value1 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
-    year => $year,
     variable => ['total_export'],
     exp_sector=>$sector_data[$sector],
   ]);  
@@ -87,13 +76,11 @@ if($sector == 0){
     $value2 = $db->sum($table2_name,"value",[
 
     imp_country => $exp_country,
-    year => $year,
     variable => ['total_export']
 ]);
 } else {
     $value2 = $db->sum($table2_name,"value",[
     imp_country => $exp_country,
-    year => $year,
     variable => ['total_export'],
     exp_sector=>$sector_data[$sector],
   ]);  
@@ -102,16 +89,12 @@ if($sector == 0){
 /// calculation of total_export
 if($sector == 0){
     $value_total = $db->sum($table_name,"value",[
-    exp_country => $exp_country,  
     imp_country => $imp_country,
-    year => $year,
     variable => ['total_export']
 ]);
 } else {
     $value_total = $db->sum($table_name,"value",[
-    exp_country => $exp_country,  
     imp_country => $imp_country,
-    year => $year,
     variable => ['total_export'],
     exp_sector=>$sector_data[$sector],
   ]);  
