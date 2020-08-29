@@ -85,7 +85,7 @@ if($sector == 0){
 
 
 
-
+$result[0]['source_country'] = "-";
 $result[0]['exp_country'] = $exp_country;
 $result[0]['exp_sector'] = $sector_data[$sector];
 $result[0]['imp_country'] = $imp_country;
@@ -94,6 +94,7 @@ $result[0]['value'] = round(($valueA/$value_gross)*100,2);
 $result[0]['year'] = $year;
 $result[0]['indicator'] = 'GVC_part';
 
+$result[1]['source_country'] = "-";
 $result[1]['exp_country'] = $exp_country;
 $result[1]['exp_sector'] = $sector_data[$sector];
 $result[1]['imp_country'] = $imp_country;
@@ -102,10 +103,11 @@ $result[1]['value'] = round(($valueB/$value_gross)*100,2);
 $result[1]['year'] = $year;
 $result[1]['indicator'] = 'GVC_part_backward';
 
+$result[2]['source_country'] = "-";
 $result[2]['exp_country'] = $exp_country;
 $result[2]['exp_sector'] = $sector_data[$sector];
 $result[2]['imp_country'] = $imp_country;
-$result[1]['variable_set'] = 'double';
+$result[2]['variable_set'] = 'double';
 $result[2]['value'] = round(($valueC/$value_gross)*100,2);
 $result[2]['year'] = $year;
 $result[2]['indicator'] = 'GVC_part';

@@ -22,6 +22,7 @@ $value = $db->query($sql)->fetchAll();
 
 for($i=0;$i < count($value);$i++){
     $result[$i]['source_country'] = $source_country;
+     $result[$i]['variable_set'] = "-";
     $result[$i]['exp_country'] = $exp_country;
     $result[$i]['exp_sector'] = $value[$i]['exp_sector'];
     $result[$i]['imp_country'] = $imp_country;

@@ -33,16 +33,12 @@ if($sector == 0){
 
 if($sector == 0){
     $value1 = $db->sum($tableName2,"value",[
-    exp_country =>$imp_country,
     imp_country =>$exp_country ,
-    year => $year,
      variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1' , 'DVA_INTrex2', 'DVA_INTrex3']
 ]);
 } else {
     $value1 = $db->sum($tableName2,"value",[
-    exp_country =>$imp_country,
     imp_country => $exp_country,
-    year => $year,
      variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1' , 'DVA_INTrex2', 'DVA_INTrex3'],
     exp_sector=>$sector_data[$sector],
   ]);  

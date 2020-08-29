@@ -30,10 +30,12 @@ if($sector == 0){
   ]);  
 }
 
+$result['source_country'] = "-";
 $result['exp_country'] = $exp_country;
 $result['exp_sector'] = $sector_data[$sector];
 $result['imp_country'] = $imp_country;
 $result['value'] = round($value,2);
+$result['variable_set'] = "-";
 $result['year'] = $year;
 $result['indicator'] = 'Imp_cont';
 
