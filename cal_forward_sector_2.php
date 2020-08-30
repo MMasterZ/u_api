@@ -11,6 +11,7 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 
+
 //get region
 $region_data = $db->select("country_list","region",[
 iso =>$exp_country
