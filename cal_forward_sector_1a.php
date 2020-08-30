@@ -10,25 +10,21 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 
+$table_name = $exp_country . "_" . $year;
 
-
-$value = $db->sum("country_data","value",[
-    exp_country =>$exp_country,
+$value = $db->sum($table_name ,"value",[
     imp_country => $imp_country,
-    year => $year,
     variable => ['DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3' ]
 ]);
 
-$result['contributionto'] = $value/1000;
+$result['contributionto'] = round($value/1000,2);
 
-$value = $db->sum("country_data","value",[
-    exp_country =>$exp_country,
+$value = $db->sum($table_name ,"value",[
     imp_country => $imp_country,
-    year => $year,
     variable => ['total_export']
 ]);
 
-$result['exportto'] = $value/1000;
+$result['exportto'] = round($value/1000,2);
 
  echo json_encode($result);
 ?>

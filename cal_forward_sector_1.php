@@ -21,7 +21,7 @@ $value = $db->query($sql)->fetchAll();
 
 for($i=0;$i< count($value);$i++){
     $result[$i]['exp_sector'] = $value[$i]['exp_sector'];
-    $result[$i]['value'] = $value[$i]['sum'];
+    $result[$i]['value'] = round($value[$i]['sum'],2);
 }
 
  echo json_encode($result);
