@@ -11,6 +11,7 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $source_country = $_GET['source_country'];
 $year = $_GET['year'];
+$runNumber =0;
 
 //get region
 $region_data = $db->select("country_list","region",[
@@ -41,11 +42,16 @@ $export_name = $db->select("country_list","name",["iso"=>$exp_country]);
 
 
     for($k=0;$k<count($value);$k++){
-        $result[$j][$k]['exp_country'] = $export_name[0];
-        $result[$j][$k]['sector'] = $value[$k]['exp_sector'];
+        $valueFinal = round($value[$k]['sum']/$value2*100,2);
+     
+        $result[$runNumber]['exp_country'] = $export_name[0];
+        $result[$runNumber]['sector'] = $value[$k]['exp_sector'];
         $sector_data = $db->select("sector_data","grouping",["name"=>$value[$k]['exp_sector']]);
-        $result[$j][$k]['grouping'] = $sector_data[0];
-        $result[$j][$k]['value'] = round($value[$k]['sum']/$value2*100,2);
+        $result[$runNumber]['grouping'] = $sector_data[0];
+        $result[$runNumber]['value'] = round($value[$k]['sum']/$value2*100,2);
+        $runNumber++;
+     
+        
     }
 
 }
