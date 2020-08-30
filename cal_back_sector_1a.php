@@ -12,26 +12,24 @@ $exp_country = $_GET['exp_country'];
 $source_country = $_GET['source_country'];
 $year = $_GET['year'];
 
+$tableName = $exp_country . "_" . $year;
 
 
-$value = $db->sum("country_data","value",[
-    exp_country =>$exp_country,
+
+$value = $db->sum($tableName ,"value",[
     imp_country => $imp_country,
     source_country =>$source_country,
-    year => $year,
     variable => ['fva_fin_yl', 'fva_int_yl']
 ]);
 
-$result['fromsource'] = $value/1000;
+$result['fromsource'] = round($value/1000,2);
 
-$value = $db->sum("country_data","value",[
-    exp_country =>$exp_country,
+$value = $db->sum($tableName ,"value",[
     imp_country => $imp_country,
-    year => $year,
     variable => ['total_export']
 ]);
 
-$result['exportto'] = $value/1000;
+$result['exportto'] = round($value/1000,2);
 
  echo json_encode($result);
 ?>

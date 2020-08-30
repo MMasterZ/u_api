@@ -26,6 +26,8 @@ $value = $db->sum($tableName,"value",[
     exp_sector=>$sector_data[$sector],
   ]);  
 }
+
+
 $result['contribution'] = round($value/1000,2);
 
 //Gross exports to
