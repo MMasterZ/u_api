@@ -3,13 +3,17 @@ require_once('connection.php');
 
  $_POST = json_decode(file_get_contents("php://input"),true);
 
-		$db->delete('country_data',
-			[ "AND" => [
-					"year" => $_POST['year'],
-					"exp_country" => $_POST['code']
-				]
-			]
-		);
+ $table = $_POST['code'] . "_" . $_POST['year'];
+
+		// $db->delete('country_data',
+		// 	[ "AND" => [
+		// 			"year" => $_POST['year'],
+		// 			"exp_country" => $_POST['code']
+		// 		]
+		// 	]
+		// );
+
+		$db -> drop($table);
 
 		$db->delete('upload_log',
 		[ "AND" => [
