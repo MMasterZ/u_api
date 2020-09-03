@@ -12,7 +12,7 @@ $backward = $db->query($sql)->fetchAll();
 
 
 //extra cal -a-1
-$sql  = "select sum(value) as sum from " . $tableName . " where  (variable = 'MVA_FIN' or variable='MVA_INT' or variable='OVA_FIN' or variable='OVA_INT')  group by imp_country order by sum DESC limit 5"  ;
+$sql  = "select sum(value) as sum from " . $tableName . " where  (variable = 'MVA_FIN' or variable='fva_fin_yl' or variable='fva_int_yl')  group by source_country order by sum DESC limit 5"  ;
 $backward_a_1 = $db->query($sql)->fetchAll();
 
 
@@ -23,13 +23,6 @@ $backward_a_2 = $db->query($sql)->fetchAll();
 for($i=0;$i<count($backward);$i++){
     $source_country = $backward[$i]['source_country'];
  
-    
-
-
-
-
-
-  
 
     //backwar-layer-2
     $sql  = "select sum(value) as sum,  exp_sector from " . $tableName . " where  source_country = '" . $source_country ."' and (variable = 'fva_fin_yl' or variable='fva_int_yl')  group by exp_sector order by sum DESC limit 5" ;
