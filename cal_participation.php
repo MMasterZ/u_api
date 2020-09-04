@@ -32,23 +32,23 @@ $area = $db->select("country_list","name",["iso"=>$exp_country2]);
   //Forward
   if($sector == 0){
   $sql  = "select sum(value) as sum  from " . $table3_name . "  
-  where exp_country='" . $exp_country2. "' and imp_country='" . $imp_country. "'  and year = " . $year ." and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' ) " ;
+  where imp_country='" . $imp_country. "' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' ) " ;
   $value1 = $db->query($sql)->fetchAll();
 
     $sql  = "select sum(value) as sum  from " . $table3_name . "  
-  where exp_country='" . $exp_country2. "' and imp_country='" . $imp_country. "'  and year = " . $year ." and (variable = 'total_export' ) " ;
+  where imp_country='" . $imp_country. "' and (variable = 'total_export' ) " ;
   $value2 = $db->query($sql)->fetchAll();
 
   } else {
 
      $sql  = "select sum(value) as sum  from " . $table3_name . "  
-  where exp_country='" . $exp_country2. "' and imp_country='" . $imp_country. "'and exp_sector = '" . $sector_data[$sector] . "'  and year = " . $year ." and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' ) " ;
+  where imp_country='" . $imp_country. "'and exp_sector = '" . $sector_data[$sector] . "' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' ) " ;
 
   $value1 = $db->query($sql)->fetchAll(); 
   
 
    $sql  = "select sum(value) as sum  from " . $table3_name . "  
-  where exp_country='" . $exp_country2. "' and imp_country='" . $imp_country. "'and exp_sector = '" . $sector_data[$sector] . "'  and year = " . $year ." and (variable = 'total_export' ) " ;
+  where imp_country='" . $imp_country. "'and exp_sector = '" . $sector_data[$sector] . "' and (variable = 'total_export' ) " ;
 
   $value2 = $db->query($sql)->fetchAll(); 
   
@@ -59,14 +59,14 @@ $area = $db->select("country_list","name",["iso"=>$exp_country2]);
   //Backward
     if($sector == 0){
   $sql  = "select sum(value) as sum  from " . $table3_name . "  
-  where exp_country='" . $exp_country2. "' and imp_country='" . $imp_country. "'  and year = " . $year ." and (variable = 'MVA_FIN' or variable='MVA_INT' or variable='OVA_FIN' or variable='OVA_INT' ) " ;
+  where imp_country='" . $imp_country. "' and (variable = 'MVA_FIN' or variable='MVA_INT' or variable='OVA_FIN' or variable='OVA_INT' ) " ;
   $value3 = $db->query($sql)->fetchAll();
 
 
   } else {
 
      $sql  = "select sum(value) as sum  from " . $table3_name . "  
-  where exp_country='" . $exp_country2. "' and imp_country='" . $imp_country. "'and exp_sector = '" . $sector_data[$sector] . "'  and year = " . $year ." and (variable = 'MVA_FIN' or variable='MVA_INT' or variable='OVA_FIN' or variable='OVA_INT' ) " ;
+  where imp_country='" . $imp_country. "'and exp_sector = '" . $sector_data[$sector] . "' and (variable = 'MVA_FIN' or variable='MVA_INT' or variable='OVA_FIN' or variable='OVA_INT' ) " ;
   $value3 = $db->query($sql)->fetchAll(); 
   }
  
@@ -77,14 +77,14 @@ $area = $db->select("country_list","name",["iso"=>$exp_country2]);
   //Double
     if($sector == 0){
   $sql  = "select sum(value) as sum  from " . $table3_name . "  
-  where exp_country='" . $exp_country2. "' and imp_country='" . $imp_country. "'  and year = " . $year ." and (variable = 'DDC_FIN' or variable='DDC_INT' or variable='MDC' or variable='ODC' ) " ;
+  where imp_country='" . $imp_country. "' and (variable = 'DDC_FIN' or variable='DDC_INT' or variable='MDC' or variable='ODC' ) " ;
   $value4 = $db->query($sql)->fetchAll();
 
 
   } else {
 
      $sql  = "select sum(value) as sum  from " . $table3_name . "  
-  where exp_country='" . $exp_country2. "' and imp_country='" . $imp_country. "'and exp_sector = '" . $sector_data[$sector] . "'  and year = " . $year ." and (variable = 'DDC_FIN' or variable='DDC_INT' or variable='MDC' or variable='ODC' ) " ;
+  where imp_country='" . $imp_country. "'and exp_sector = '" . $sector_data[$sector] . "' and (variable = 'DDC_FIN' or variable='DDC_INT' or variable='MDC' or variable='ODC' ) " ;
   $value4 = $db->query($sql)->fetchAll(); 
   }
  

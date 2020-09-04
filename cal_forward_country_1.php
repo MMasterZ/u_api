@@ -12,12 +12,12 @@ $sector = $_GET['sector'];
 $tableName = $exp_country . "_" . $year;
 
 if($sector == 0){
-$sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " 
-where exp_country='" . $exp_country."' and year = " . $year ." and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by imp_country" ;
+$sql  = "select sum(value) as sum, imp_country  from " . $tableName . " 
+where  (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by imp_country" ;
 $value = $db->query($sql)->fetchAll();
 } else {
-$sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " 
-where exp_country='" . $exp_country."' and year = " . $year ." and exp_sector = '" . $sector_data[$sector] ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by imp_country" ;
+$sql  = "select sum(value) as sum, imp_country  from " . $tableName . " 
+where exp_sector = '" . $sector_data[$sector] ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by imp_country" ;
 $value = $db->query($sql)->fetchAll();
 }
 

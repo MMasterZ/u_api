@@ -26,5 +26,5 @@ $value = $db->sum($table_name ,"value",[
 
 $result['exportto'] = round($value/1000,2);
 
- echo json_encode($result);
+echo json_encode($result);
 ?>

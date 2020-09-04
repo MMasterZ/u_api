@@ -7,7 +7,7 @@ $tableName = $exp_country . "_" . $year;
 
 
 //backward
-$sql  = "select sum(value) as sum, exp_sector from " . $tableName . " where exp_country='" . $exp_country. "' and year = " . $year ." and (variable = 'fva_fin_yl' or variable='fva_int_yl')  group by exp_sector order by sum DESC limit 5" ;
+$sql  = "select sum(value) as sum, exp_sector from " . $tableName . " where (variable = 'fva_fin_yl' or variable='fva_int_yl')  group by exp_sector order by sum DESC limit 5" ;
 $backward = $db->query($sql)->fetchAll();
 
 

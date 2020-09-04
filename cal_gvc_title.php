@@ -25,19 +25,13 @@ $year = $_GET['year'];
 $tableName = $country . "_" . $year;
 
 $import1 = $db->sum($tableName,"value",[
-    exp_country =>$country,
-    year => $year,
     variable => ['MVA_FIN', 'MVA_INT','OVA_FIN','OVA_INT']
 ]);
 $total = $db->sum($tableName,"value",[
-    exp_country =>$country,
-    year => $year,
     variable => ['total_export']
 ]);
 
 $export1 = $db->sum($tableName,"value",[
-    exp_country =>$country,
-    year => $year,
     variable => ['DVA_INTrex1', 'DVA_INTrex2','DVA_INTrex3']
 ]);
 

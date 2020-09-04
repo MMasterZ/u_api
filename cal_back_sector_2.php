@@ -26,7 +26,7 @@ region =>$region
 
 for($j=0;$j<count($country_data);$j++){
     $exp_country = $country_data[$j];
-$export_name = $db->select("country_list","name",["iso"=>$exp_country]);
+    $export_name = $db->select("country_list","name",["iso"=>$exp_country]);
 
     $tableName = $exp_country . "_" . $year;
     $value2 = $db->sum($tableName,"value",[
@@ -36,7 +36,7 @@ $export_name = $db->select("country_list","name",["iso"=>$exp_country]);
 
     $sector = $db->select("sector_data","*",[]);
 
-    $sql  = "select sum(value) as sum,exp_sector, exp_country from ". $tableName ." where  imp_country = '". $imp_country . "'and source_country = '". $source_country  ."' and (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by exp_sector" ;
+    $sql  = "select sum(value) as sum,exp_sector from ". $tableName ." where  imp_country = '". $imp_country . "'and source_country = '". $source_country  ."' and (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by exp_sector" ;
 
     $value = $db->query($sql)->fetchAll();
 

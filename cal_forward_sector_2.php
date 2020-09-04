@@ -35,7 +35,7 @@ $export_name = $db->select("country_list","name",["iso"=>$exp_country]);
 
     $sector = $db->select("sector_data","*",[]);
 
-    $sql  = "select sum(value) as sum,exp_sector, exp_country from ". $tableName ." where  imp_country = '". $imp_country  ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by exp_sector" ;
+    $sql  = "select sum(value) as sum,exp_sector from ". $tableName ." where  imp_country = '". $imp_country  ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by exp_sector" ;
 
     $value = $db->query($sql)->fetchAll();
 

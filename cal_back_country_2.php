@@ -24,26 +24,24 @@ $country_data = $db->select("country_list","iso",[
 region =>$region
 ]);
 
-// print_r($country_data);
 
 for($i=0; $i<count($country_data);$i++){
   $imp_country2 = $country_data[$i];
   $area = $db->select("country_list","name",["iso"=>$imp_country2]);
-  // $result[$i]['country'] =$area[0];
   $tableName = $imp_country2 . "_" . $year;
 
   if($sector == 0){
-$sql  = "select sum(value) as sum,source_country,exp_country, imp_country  from " . $tableName . " 
-where exp_country='" . $imp_country2."' and year = " . $year ." and (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by imp_country" ;
+$sql  = "select sum(value) as sum, imp_country  from " . $tableName . " 
+where (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by imp_country" ;
 $value = $db->query($sql)->fetchAll();
 
 } else {
- $sql  = "select sum(value) as sum,source_country,exp_sector, exp_country, imp_country  from 
+ $sql  = "select sum(value) as sum, imp_country  from 
 " . $tableName . " 
-where exp_country='" . $imp_country2. "'and exp_sector = '" . $sector_data[$sector]  ."' and year = " . $year ." and (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by imp_country" ;
+where exp_sector = '" . $sector_data[$sector]  ."' and (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by imp_country" ;
 $value = $db->query($sql)->fetchAll(); 
 }
-// print_r($value);
+
 if($sector == 0){
     $value2 = $db->sum($tableName,"value",[
     variable => ['total_export']

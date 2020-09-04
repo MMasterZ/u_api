@@ -30,37 +30,30 @@ for($i=0; $i<count($country_data);$i++){
   $tableName = $imp_country . "_" . $year;
 
   if($sector == 0){
-$sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " 
-where exp_country='" . $imp_country."' and year = " . $year ." and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by imp_country" ;
-$value = $db->query($sql)->fetchAll();
-} else {
-$sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " 
-where exp_country='" . $imp_country."' and year = " . $year ." and exp_sector = '" . $sector_data[$sector] ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by imp_country" ;
-$value = $db->query($sql)->fetchAll();
-}
+    $sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " where (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by imp_country" ;
+  } else {
+    $sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " where exp_sector = '" . $sector_data[$sector] ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by imp_country" ;
+  }
+  $value = $db->query($sql)->fetchAll();
 
-if($sector == 0){
+  if($sector == 0){
     $value2 = $db->sum($tableName,"value",[
     variable => ['total_export']
-]);
-} else {
+    ]);
+  } else {
     $value2 = $db->sum($tableName,"value",[
     variable => ['total_export'],
     exp_sector=>$sector_data[$sector],
-  ]);  
-}
+    ]);  
+  }
 
-for($j=0;$j<count($value);$j++){
-  $result[$i][$j]['exp_country'] = $area[0];
+  for($j=0;$j<count($value);$j++){
+    $result[$i][$j]['exp_country'] = $area[0];
     $area2 = $db->select("country_list",["name","area"],["iso"=>$value[$j]['imp_country']]);
-  $result[$i][$j]['imp_country'] =$area2[0]['name'];
-  $result[$i][$j]['area'] = $area2[0]['area'];
-  $result[$i][$j]['value'] = round($value[$j]['sum']/$value2*100,2);
-
+    $result[$i][$j]['imp_country'] =$area2[0]['name'];
+    $result[$i][$j]['area'] = $area2[0]['area'];
+    $result[$i][$j]['value'] = round($value[$j]['sum']/$value2*100,2);
+  }
 }
-
-}
-
-
- echo json_encode($result);
+echo json_encode($result);
 ?>
