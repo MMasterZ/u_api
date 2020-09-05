@@ -51,7 +51,7 @@ for($i=0;$i< count($value);$i++){
      If($area[0]['name'] == 'Rest of the World'){
         $result[$i+5]['name'] = "Other";
      } else {
-          $result[$i+5]['name'] = $area[0]['name'];
+        $result[$i+5]['name'] = $area[0]['name'];
      }
     
     if($area[0]['area'] == 'Asia-Pacific'){
