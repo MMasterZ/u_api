@@ -19,14 +19,14 @@ if($sector == 0){
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
-    variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1' , 'DVA_INTrex2', 'DVA_INTrex3']
+    variable => ['DVA_INT', 'DVA_FIN']
 ]);
 } else {
     $value = $db->sum($tableName,"value",[
     exp_country =>$exp_country,
     imp_country => $imp_country,
     year => $year,
-     variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1' , 'DVA_INTrex2', 'DVA_INTrex3'],
+     variable => ['DVA_INT', 'DVA_FIN'],
     exp_sector=>$sector_data[$sector],
   ]);  
 }
@@ -34,12 +34,12 @@ if($sector == 0){
 if($sector == 0){
     $value1 = $db->sum($tableName2,"value",[
     imp_country =>$exp_country ,
-     variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1' , 'DVA_INTrex2', 'DVA_INTrex3']
+     variable => ['DVA_INT', 'DVA_FIN']
 ]);
 } else {
     $value1 = $db->sum($tableName2,"value",[
     imp_country => $exp_country,
-     variable => ['DVA_INT', 'DVA_FIN', 'DVA_INTrex1' , 'DVA_INTrex2', 'DVA_INTrex3'],
+     variable => ['DVA_INT', 'DVA_FIN'],
     exp_sector=>$sector_data[$sector],
   ]);  
 }
