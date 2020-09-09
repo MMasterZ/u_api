@@ -27,79 +27,84 @@ for($i=0; $i<count($country_data);$i++){
   $table_name = $exp_country2 . "_" . $year;
   /// calculation of imp cons
 if($sector == 0){
-    $value = $db->sum($table_name,"value",[
+    $value1 = $db->sum($table_name,"value",[
     imp_country=>$imp_country,
     variable => ['DVA_FIN', 'DVA_INT']
 ]);
 } else {
-    $value = $db->sum($table_name,"value",[
+    $value1 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
     variable => ['DVA_FIN', 'DVA_INT'],
     exp_sector=>$sector_data[$sector],
   ]);  
 }
-$result[$i]['imp_cons'] = round($value,2);
+
 
 /// Calculation of imp exp
 if($sector == 0){
-    $value = $db->sum($table_name,"value",[
+    $value2 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
     variable => ['DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3' ]
 ]);
 } else {
-    $value = $db->sum($table_name,"value",[
+    $value2 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
     variable => ['DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3'],
     exp_sector=>$sector_data[$sector],
   ]);  
 }
-$result[$i]['imp_exp'] = round($value,2);
+
 
 /// Calculation of dom cons
 if($sector == 0){
-    $value = $db->sum($table_name,"value",[
+    $value3 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
     variable => ['RDV_FIN1', 'RDV_FIN2', 'RDV_INT' ]
 ]);
 } else {
-    $value = $db->sum($table_name,"value",[
+    $value3 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
     variable => ['RDV_FIN1', 'RDV_FIN2', 'RDV_INT'],
     exp_sector=>$sector_data[$sector],
   ]);  
 }
-$result[$i]['dom_cons'] = round($value,2);
+
 
 /// Calculation of double
 if($sector == 0){
-    $value = $db->sum($table_name,"value",[
+    $value4 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
     variable => ['DDC_FIN', 'DDC_INT', 'MDC', 'ODC' ]
 ]);
 } else {
-    $value = $db->sum($table_name,"value",[
+    $value4 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
     variable => ['DDC_FIN', 'DDC_INT', 'MDC', 'ODC'],
     exp_sector=>$sector_data[$sector],
   ]);  
 }
-$result[$i]['double'] = round($value,2);
+
 
 
 /// Calculation of imp cont
 if($sector == 0){
-    $value = $db->sum($table_name,"value",[
+    $value5 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
     variable => ['MVA_FIN', 'MVA_INT', 'OVA_FIN', 'OVA_INT' ]
 ]);
 } else {
-    $value = $db->sum($table_name,"value",[
+    $value5 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
     variable => ['MVA_FIN', 'MVA_INT', 'OVA_FIN', 'OVA_INT'],
     exp_sector=>$sector_data[$sector],
   ]);  
 }
-$result[$i]['imp_cont'] = round($value,2);
+$total = round($value1,2) + round($value2,2) + round($value3,2) + round($value4,2) + round($value5,2);
+$result[$i]['imp_cons'] = round(round($value1,2)/$total*100,2);
+$result[$i]['imp_exp'] = round(round($value2,2)/$total*100,2);
+$result[$i]['dom_cons'] = round(round($value3,2)/$total*100,2);
+$result[$i]['double'] = round(round($value4,2)/$total*100,2);
+$result[$i]['imp_cont'] = round(round($value5,2)/$total*100,2);
 
 }
 
