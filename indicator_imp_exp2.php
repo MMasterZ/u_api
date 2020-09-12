@@ -51,12 +51,12 @@ foreach($exp_country as $expData){
     foreach($year as $yearData){
         $tableName =  $expData . "_" . $yearData;
       if(count($sector) > 0){  
-        $sql  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'DVA_FIN' or variable='DVA_INT') ". $impText . $sectorText . " group by imp_country, exp_sector" ;
+        $sql  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' ) ". $impText . $sectorText . " group by imp_country, exp_sector" ;
         $value = $db->query($sql)->fetchAll();
         $final = array_merge($final,$value);
       } 
       if($sectorZero == 1){
-        $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'DVA_FIN' or variable='DVA_INT') ". $impText . " group by imp_country" ;
+        $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'DVA_INTrex1'  or variable='DVA_INTrex2' or variable='DVA_INTrex3'  ) ". $impText . " group by imp_country" ;
         $value = $db->query($sql)->fetchAll();
         $final2 = array_merge($final2,$value);
       }
@@ -75,7 +75,7 @@ for($i=0;$i< count($final);$i++){
     $result[$i]['variable_set'] = "-";
     $result[$i]['value'] = round($final[$i][0],2);
     $result[$i]['year'] = $final[$i]['year'];
-    $result[$i]['indicator'] = 'imp_cons';
+    $result[$i]['indicator'] = 'Imp_exp';
 }
 for($i=0;$i< count($final2);$i++){
     $result[$i+count($final)]['exp_country'] = $final2[$i]['exp_country'];
@@ -84,7 +84,7 @@ for($i=0;$i< count($final2);$i++){
     $result[$i+count($final)]['variable_set'] = "-";
     $result[$i+count($final)]['value'] = round($final2[$i][0],2);
     $result[$i+count($final)]['year'] = $final2[$i]['year'];
-    $result[$i+count($final)]['indicator'] = 'imp_cons';
+    $result[$i+count($final)]['indicator'] = 'Imp_exp';
 }
 echo json_encode($result);
 ?>

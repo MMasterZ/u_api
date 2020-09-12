@@ -1,10 +1,9 @@
-<?
-//1. Gross exports used in importer's consumption (Imp_cons)
+<?php 
+
 //imp_country = import country ส่งมาเป็นรหัสประเทศ 3 ตัว
 //exp_country = export country ส่งมาเป็นรหัสประเทศ 3 ตัว
 //year = ปี ส่งเป็น ค.ศ. 2017
 //sector = sector ส่งมาเป็น id ตัวเลข sector 
-
 require_once('connection.php');
 require_once('sector_data.php');
 
@@ -15,9 +14,9 @@ $year = $data['year'];
 $sector = $data['sector'];
 
 // $exp_country = ['THA'];
-// $imp_country = ['CHN','JPN'];
+// $imp_country = ['USA'];
 // $year = ['2017'];
-// $sector = [0,1,3,5];
+// $sector = [0];
 
 // Import Country
 $impText = ' and imp_country in (';
@@ -43,48 +42,51 @@ $sectorText = $sectorText . "'".  $sector_data[$sectorData] . "',";
 }
 $sectorText = substr($sectorText,0,-1);
 $sectorText = $sectorText . ")";
-// echo $sectorText;
+
 $final = [];
 $final2 = [];
 
 foreach($exp_country as $expData){
     foreach($year as $yearData){
         $tableName =  $expData . "_" . $yearData;
-      if(count($sector) > 0){  
-        $sql  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'DVA_FIN' or variable='DVA_INT') ". $impText . $sectorText . " group by imp_country, exp_sector" ;
-        $value = $db->query($sql)->fetchAll();
-        $final = array_merge($final,$value);
-      } 
-      if($sectorZero == 1){
-        $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'DVA_FIN' or variable='DVA_INT') ". $impText . " group by imp_country" ;
+        if(count($sector) > 0){  
+            $sql  = "select sum(value) as sum,exp_country, imp_country,exp_sector,source_country, year  from " . $tableName . " where (variable = 'fva_fin_yl' or variable='fva_int_yl') ". $impText . $sectorText . " group by imp_country, exp_sector, source_country" ;
+        //  echo $sql;
+         $value = $db->query($sql)->fetchAll();
+         $final = array_merge($final,$value);
+        } 
+        if($sectorZero == 1){
+       $sql  = "select sum(value) as sum,exp_country, imp_country,source_country, year  from " . $tableName . " where (variable = 'fva_fin_yl' or variable='fva_int_yl') ". $impText .  " group by imp_country, source_country" ;
+    //    echo $sql;
+        
         $value = $db->query($sql)->fetchAll();
         $final2 = array_merge($final2,$value);
       }
-        
+
         
     }
 }
 
-// print_r($final);
-// print_r($final2);
-
 for($i=0;$i< count($final);$i++){
+
+    $result[$i]['source_country'] =$final[$i]['source_country'];
     $result[$i]['exp_country'] = $final[$i]['exp_country'];
-    $result[$i]['exp_sector'] = $final[$i]['exp_sector'];
+    $result[$i]['exp_sector'] = $final[$i]['exp_sector'];  
     $result[$i]['imp_country'] = $final[$i]['imp_country'];
     $result[$i]['variable_set'] = "-";
     $result[$i]['value'] = round($final[$i][0],2);
     $result[$i]['year'] = $final[$i]['year'];
-    $result[$i]['indicator'] = 'imp_cons';
+    $result[$i]['indicator'] = 'Back_link_country';
 }
 for($i=0;$i< count($final2);$i++){
+    $result[$i+count($final)]['source_country'] =$final2[$i]['source_country'];
     $result[$i+count($final)]['exp_country'] = $final2[$i]['exp_country'];
     $result[$i+count($final)]['exp_sector'] = 'all';
     $result[$i+count($final)]['imp_country'] = $final2[$i]['imp_country'];
     $result[$i+count($final)]['variable_set'] = "-";
     $result[$i+count($final)]['value'] = round($final2[$i][0],2);
     $result[$i+count($final)]['year'] = $final2[$i]['year'];
-    $result[$i+count($final)]['indicator'] = 'imp_cons';
+    $result[$i+count($final)]['indicator'] = 'Back_link_country';
 }
 echo json_encode($result);
 ?>

@@ -1,5 +1,5 @@
-<?
-//1. Gross exports used in importer's consumption (Imp_cons)
+<?php 
+//13. Gross exports
 //imp_country = import country ส่งมาเป็นรหัสประเทศ 3 ตัว
 //exp_country = export country ส่งมาเป็นรหัสประเทศ 3 ตัว
 //year = ปี ส่งเป็น ค.ศ. 2017
@@ -13,13 +13,11 @@ $exp_country= $data['exporting'];
 $imp_country = $data['importing'];
 $year = $data['year'];
 $sector = $data['sector'];
-
 // $exp_country = ['THA'];
 // $imp_country = ['CHN','JPN'];
 // $year = ['2017'];
 // $sector = [0,1,3,5];
-
-// Import Country
+// // Import Country
 $impText = ' and imp_country in (';
 foreach($imp_country as $impData){
     $impText = $impText . "'".  $impData . "',";
@@ -51,12 +49,12 @@ foreach($exp_country as $expData){
     foreach($year as $yearData){
         $tableName =  $expData . "_" . $yearData;
       if(count($sector) > 0){  
-        $sql  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'DVA_FIN' or variable='DVA_INT') ". $impText . $sectorText . " group by imp_country, exp_sector" ;
+        $sql  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'total_export') ". $impText . $sectorText . " group by imp_country, exp_sector" ;
         $value = $db->query($sql)->fetchAll();
         $final = array_merge($final,$value);
       } 
       if($sectorZero == 1){
-        $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'DVA_FIN' or variable='DVA_INT') ". $impText . " group by imp_country" ;
+        $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'total_export') ". $impText . " group by imp_country" ;
         $value = $db->query($sql)->fetchAll();
         $final2 = array_merge($final2,$value);
       }
@@ -75,7 +73,7 @@ for($i=0;$i< count($final);$i++){
     $result[$i]['variable_set'] = "-";
     $result[$i]['value'] = round($final[$i][0],2);
     $result[$i]['year'] = $final[$i]['year'];
-    $result[$i]['indicator'] = 'imp_cons';
+    $result[$i]['indicator'] = 'Gross_exports';
 }
 for($i=0;$i< count($final2);$i++){
     $result[$i+count($final)]['exp_country'] = $final2[$i]['exp_country'];
@@ -84,7 +82,8 @@ for($i=0;$i< count($final2);$i++){
     $result[$i+count($final)]['variable_set'] = "-";
     $result[$i+count($final)]['value'] = round($final2[$i][0],2);
     $result[$i+count($final)]['year'] = $final2[$i]['year'];
-    $result[$i+count($final)]['indicator'] = 'imp_cons';
+    $result[$i+count($final)]['indicator'] = 'Gross_exports';
 }
 echo json_encode($result);
 ?>
+
