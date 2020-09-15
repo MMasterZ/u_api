@@ -8,113 +8,45 @@ $year = $_GET['year'];
 $sector = $_GET['sector'];
 $table_name = $exp_country . "_" . $year;
 
-/// calculation of imp cons
 if($sector == 0){
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['DVA_FIN', 'DVA_INT']
-]);
+$sql = "select distinct
+(select sum(value) from ". $table_name." where (variable = 'DVA_FIN' or variable = 'DVA_INT') and imp_country = '".$imp_country."') as imp_cons, 
+(select sum(value) from ".$table_name . " where (variable = 'DVA_INTrex1' or variable = 'DVA_INTrex2' or variable = 'DVA_INTrex3') and imp_country = '".$imp_country."') as imp_exp,
+(select sum(value) from ".$table_name . " where (variable = 'RDV_FIN1' or variable = 'RDV_FIN2' or variable = 'RDV_INT') and imp_country = '".$imp_country."') as dom_cons,
+(select sum(value) from ".$table_name . " where (variable = 'DDC_FIN' or variable = 'DDC_INT' or variable = 'MDC' or variable = 'ODC') and imp_country = '".$imp_country."') as doublex,
+(select sum(value) from ".$table_name . " where (variable = 'MVA_FIN' or variable = 'MVA_INT' or variable = 'OVA_FIN' or variable = 'OVA_INT') and imp_country = '".$imp_country."') as imp_cont,
+(select sum(value) from ".$table_name . " where (variable = 'total_export') and imp_country = '".$imp_country."') as import_country,
+(select sum(value) from ".$table_name . " where (variable = 'total_export') ) as import_world
+from ".$table_name;
 } else {
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['DVA_FIN', 'DVA_INT'],
-    exp_sector=>$sector_data[$sector],
-  ]);  
+  $sql = "select distinct
+(select sum(value) from ". $table_name." where (variable = 'DVA_FIN' or variable = 'DVA_INT') and exp_sector = '" . $sector_data[$sector] . "' and imp_country = '".$imp_country."') as imp_cons, 
+(select sum(value) from ".$table_name . " where (variable = 'DVA_INTrex1' or variable = 'DVA_INTrex2' or variable = 'DVA_INTrex3') and exp_sector = '" . $sector_data[$sector] . "'  and imp_country = '".$imp_country."') as imp_exp,
+(select sum(value) from ".$table_name . " where (variable = 'RDV_FIN1' or variable = 'RDV_FIN2' or variable = 'RDV_INT')  and exp_sector = '" . $sector_data[$sector] . "' and imp_country = '".$imp_country."') as dom_cons,
+(select sum(value) from ".$table_name . " where (variable = 'DDC_FIN' or variable = 'DDC_INT' or variable = 'MDC' or variable = 'ODC') and exp_sector = '" . $sector_data[$sector] . "'  and imp_country = '".$imp_country."') as doublex,
+(select sum(value) from ".$table_name . " where (variable = 'MVA_FIN' or variable = 'MVA_INT' or variable = 'OVA_FIN' or variable = 'OVA_INT') and exp_sector = '" . $sector_data[$sector] . "'  and imp_country = '".$imp_country."') as imp_cont,
+(select sum(value) from ".$table_name . " where (variable = 'total_export') and exp_sector = '" . $sector_data[$sector] . "'  and imp_country = '".$imp_country."') as import_country,
+(select sum(value) from ".$table_name . " where (variable = 'total_export') and exp_sector = '" . $sector_data[$sector] . "'  ) as import_world
+from ".$table_name;
 }
-$result['imp_cons'] = round($value,2);
 
-
-/// Calculation of imp exp
-if($sector == 0){
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3' ]
-]);
+$value2 = $db->query($sql)->fetchAll();
+$result['imp_cons'] = round($value2[0]['imp_cons'],2);
+$result['imp_exp'] = round($value2[0]['imp_exp'],2);
+$result['dom_cons'] = round($value2[0]['dom_cons'],2);
+$result['double'] = round($value2[0]['doublex'],2);
+$result['imp_cont'] = round($value2[0]['imp_cont'],2);
+if($value2[0]['import_country'] > 1000){
+  $t1 = round($value2[0]['import_country'] /1000,2) . "B";
 } else {
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3'],
-    exp_sector=>$sector_data[$sector],
-  ]);  
+  $t1 = round($value2[0]['import_country'],2) . "M";
 }
-$result['imp_exp'] = round($value,2);
-
-/// Calculation of dom cons
-if($sector == 0){
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['RDV_FIN1', 'RDV_FIN2', 'RDV_INT' ]
-]);
+$result['text_export_to_import_country'] = $t1;
+if($value2[0]['import_world'] > 1000){
+  $t1 = round($value2[0]['import_world'] /1000,2) . "B";
 } else {
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['RDV_FIN1', 'RDV_FIN2', 'RDV_INT'],
-    exp_sector=>$sector_data[$sector],
-  ]);  
+  $t1 = round($value2[0]['import_world'],2) . "M";
 }
-$result['dom_cons'] = round($value,2);
-
-/// Calculation of double
-if($sector == 0){
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['DDC_FIN', 'DDC_INT', 'MDC', 'ODC' ]
-]);
-} else {
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['DDC_FIN', 'DDC_INT', 'MDC', 'ODC'],
-    exp_sector=>$sector_data[$sector],
-  ]);  
-}
-$result['double'] = round($value,2);
-
-
-/// Calculation of imp cont
-if($sector == 0){
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['MVA_FIN', 'MVA_INT', 'OVA_FIN', 'OVA_INT' ]
-]);
-} else {
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['MVA_FIN', 'MVA_INT', 'OVA_FIN', 'OVA_INT'],
-    exp_sector=>$sector_data[$sector],
-  ]);  
-}
-$result['imp_cont'] = round($value,2);
-
-//Gross exports to import country
-if($sector == 0){
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['total_export' ]
-]);
-} else {
-    $value = $db->sum($table_name,"value",[
-    imp_country => $imp_country,
-    variable => ['total_export'],
-    exp_sector=>$sector_data[$sector],
-  ]);  
-}
-$result['text_export_to_import_country'] = round($value/1000,2);
-
-//Gross exports to world
-if($sector == 0){
-    $value = $db->sum($table_name,"value",[
-    variable => ['total_export' ]
-]);
-} else {
-    $value = $db->sum($table_name,"value",[
-    variable => ['total_export'],
-    exp_sector=>$sector_data[$sector],
-  ]);  
-}
-$result['text_export_to_world'] = round($value/1000,2);
-
-
-
-
+$result['text_export_to_world'] =$t1;
 echo json_encode($result);
 ?>

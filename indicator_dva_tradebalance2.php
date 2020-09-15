@@ -67,7 +67,6 @@ foreach($exp_country as $expData){
           $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'DVA_INT' or variable='DVA_FIN' or variable='DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' ) ". $impText . " group by imp_country" ;
           $value = $db->query($sql)->fetchAll();
           $finalA = array_merge($finalA,$value);
-
           $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'total_export') ". $impText .  " group by imp_country" ;
           $value2 = $db->query($sql)->fetchAll();
           $finalgA = array_merge($finalgA,$value2);
@@ -91,6 +90,7 @@ $impText = $impText . ")";
 
 $final2 = [];
 $final2g = [];
+$final2A = [];
 
 foreach($imp_country as $expData){
     foreach($year as $yearData){
@@ -108,10 +108,7 @@ foreach($imp_country as $expData){
     }
 }
 
-// print_r($final);
-// print_r($final2);
-// print_r($finalg);
-// echo "****";
+
 for($i=0;$i<count($final);$i++){
   $exp1 = $final[$i][1];
   $imp1 = $final[$i][2];
@@ -131,7 +128,7 @@ for($i=0;$i<count($final);$i++){
     break;
     }
   }
-  // echo $value . "***" . $value1 . "***" . $value_f;
+
   // echo ($value-$value1)/$value_f*100;
       $result[$i]['source_country'] = "-";
     $result[$i]['exp_country'] = $final[$i][1];
@@ -161,7 +158,6 @@ for($i=0;$i<count($finalA);$i++){
     break;
     }
   }
-  // echo $value . "***" . $value1 . "***" . $value_f;
   // echo ($value-$value1)/$value_f*100;
   
       $result[$i+$sumx]['source_country'] = "-";
