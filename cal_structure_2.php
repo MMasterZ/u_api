@@ -21,6 +21,11 @@ region =>$region
 ]);
 $count = 0;
 for($i=0; $i<count($country_data);$i++){
+  $value1 =0;
+  $value2 =0;
+  $value3 =0;
+  $value4 = 0;
+  $value5=0;
   $exp_country2 = $country_data[$i];
  
  
@@ -29,31 +34,80 @@ for($i=0; $i<count($country_data);$i++){
      $area = $db->select("country_list","name",["iso"=>$exp_country2]);
      $result[$count]['imp_country'] =$area[0];
   $table_name = $exp_country2 . "_" . $year;
-
+  /// calculation of imp cons
 if($sector == 0){
-$sql = "select distinct
-(select sum(value) from ". $table_name." where (variable = 'DVA_FIN' or variable = 'DVA_INT') and imp_country = '".$imp_country."') as imp_cons, 
-(select sum(value) from ".$table_name . " where (variable = 'DVA_INTrex1' or variable = 'DVA_INTrex2' or variable = 'DVA_INTrex3') and imp_country = '".$imp_country."') as imp_exp,
-(select sum(value) from ".$table_name . " where (variable = 'RDV_FIN1' or variable = 'RDV_FIN2' or variable = 'RDV_INT') and imp_country = '".$imp_country."') as dom_cons,
-(select sum(value) from ".$table_name . " where (variable = 'DDC_FIN' or variable = 'DDC_INT' or variable = 'MDC' or variable = 'ODC') and imp_country = '".$imp_country."') as doublex,
-(select sum(value) from ".$table_name . " where (variable = 'MVA_FIN' or variable = 'MVA_INT' or variable = 'OVA_FIN' or variable = 'OVA_INT') and imp_country = '".$imp_country."') as imp_cont
-from ".$table_name;
+    $value1 = $db->sum($table_name,"value",[
+    imp_country=>$imp_country,
+    variable => ['DVA_FIN', 'DVA_INT']
+]);
 } else {
-  $sql = "select distinct
-(select sum(value) from ". $table_name." where (variable = 'DVA_FIN' or variable = 'DVA_INT') and exp_sector = '" . $sector_data[$sector] . "' and imp_country = '".$imp_country."') as imp_cons, 
-(select sum(value) from ".$table_name . " where (variable = 'DVA_INTrex1' or variable = 'DVA_INTrex2' or variable = 'DVA_INTrex3') and exp_sector = '" . $sector_data[$sector] . "'  and imp_country = '".$imp_country."') as imp_exp,
-(select sum(value) from ".$table_name . " where (variable = 'RDV_FIN1' or variable = 'RDV_FIN2' or variable = 'RDV_INT')  and exp_sector = '" . $sector_data[$sector] . "' and imp_country = '".$imp_country."') as dom_cons,
-(select sum(value) from ".$table_name . " where (variable = 'DDC_FIN' or variable = 'DDC_INT' or variable = 'MDC' or variable = 'ODC') and exp_sector = '" . $sector_data[$sector] . "'  and imp_country = '".$imp_country."') as doublex,
-(select sum(value) from ".$table_name . " where (variable = 'MVA_FIN' or variable = 'MVA_INT' or variable = 'OVA_FIN' or variable = 'OVA_INT') and exp_sector = '" . $sector_data[$sector] . "'  and imp_country = '".$imp_country."') as imp_cont
-from ".$table_name;
+    $value1 = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['DVA_FIN', 'DVA_INT'],
+    exp_sector=>$sector_data[$sector],
+  ]);  
 }
-$value2x = $db->query($sql)->fetchAll();
-$value1 = round($value2x[0]['imp_cons'],2);
-$value2 = round($value2x[0]['imp_exp'],2);
-$value3 = round($value2x[0]['dom_cons'],2);
-$value4 = round($value2x[0]['doublex'],2);
-$value5 = round($value2x[0]['imp_cont'],2);
 
+
+/// Calculation of imp exp
+if($sector == 0){
+    $value2 = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3' ]
+]);
+} else {
+    $value2 = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3'],
+    exp_sector=>$sector_data[$sector],
+  ]);  
+}
+
+
+/// Calculation of dom cons
+if($sector == 0){
+    $value3 = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['RDV_FIN1', 'RDV_FIN2', 'RDV_INT' ]
+]);
+} else {
+    $value3 = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['RDV_FIN1', 'RDV_FIN2', 'RDV_INT'],
+    exp_sector=>$sector_data[$sector],
+  ]);  
+}
+
+
+/// Calculation of double
+if($sector == 0){
+    $value4 = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['DDC_FIN', 'DDC_INT', 'MDC', 'ODC' ]
+]);
+} else {
+    $value4 = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['DDC_FIN', 'DDC_INT', 'MDC', 'ODC'],
+    exp_sector=>$sector_data[$sector],
+  ]);  
+}
+
+
+
+/// Calculation of imp cont
+if($sector == 0){
+    $value5 = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['MVA_FIN', 'MVA_INT', 'OVA_FIN', 'OVA_INT' ]
+]);
+} else {
+    $value5 = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['MVA_FIN', 'MVA_INT', 'OVA_FIN', 'OVA_INT'],
+    exp_sector=>$sector_data[$sector],
+  ]);  
+}
 $total = round($value1,2) + round($value2,2) + round($value3,2) + round($value4,2) + round($value5,2);
 $result[$count]['imp_cons'] = round(round($value1,2)/$total*100,2);
 $result[$count]['imp_exp'] = round(round($value2,2)/$total*100,2);

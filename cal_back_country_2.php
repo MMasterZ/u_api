@@ -24,43 +24,43 @@ $country_data = $db->select("country_list","iso",[
 region =>$region
 ]);
 
-
+$count = 0;
 for($i=0; $i<count($country_data);$i++){
+  
   $imp_country2 = $country_data[$i];
-  $area = $db->select("country_list","name",["iso"=>$imp_country2]);
-  $tableName = $imp_country2 . "_" . $year;
+  if($imp_country2 != $imp_country){
+    $area = $db->select("country_list","name",["iso"=>$imp_country2]);
+    $tableName = $imp_country2 . "_" . $year;
+
+    if($sector == 0){
+      $sql  = "select sum(value) as sum, source_country  from " . $tableName . " where (variable = 'fva_fin_yl' or variable='fva_int_yl' ) and imp_country='" . $imp_country . "' group by source_country" ;
+      $value = $db->query($sql)->fetchAll();
+    } else {
+      $sql  = "select sum(value) as sum, source_country  from " . $tableName . " where exp_sector = '" . $sector_data[$sector]  ."' and (variable = 'fva_fin_yl' or variable='fva_int_yl' ) and imp_country='" . $imp_country . "' group by source_country" ;
+      $value = $db->query($sql)->fetchAll(); 
+    }
 
   if($sector == 0){
-$sql  = "select sum(value) as sum, imp_country  from " . $tableName . " 
-where (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by imp_country" ;
-$value = $db->query($sql)->fetchAll();
+      $value2 = $db->sum($tableName,"value",[
+      variable => ['total_export']
+  ]);
+  } else {
+      $value2 = $db->sum($tableName,"value",[
+      variable => ['total_export'],
+      exp_sector=>$sector_data[$sector],
+    ]);  
+  }
 
-} else {
- $sql  = "select sum(value) as sum, imp_country  from 
-" . $tableName . " 
-where exp_sector = '" . $sector_data[$sector]  ."' and (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by imp_country" ;
-$value = $db->query($sql)->fetchAll(); 
-}
+  for($j=0;$j<count($value);$j++){
+    $result[$count][$j]['exp_country'] = $area[0];
+      $area2 = $db->select("country_list",["name","area"],["iso"=>$value[$j]['source_country']]);
+    $result[$count][$j]['imp_country'] =$area2[0]['name'];
+    $result[$count][$j]['area'] = $area2[0]['area'];
+    $result[$count][$j]['value'] = round($value[$j]['sum']/$value2*100,2);
+  }
+  $count++;
+  }
 
-if($sector == 0){
-    $value2 = $db->sum($tableName,"value",[
-    variable => ['total_export']
-]);
-} else {
-    $value2 = $db->sum($tableName,"value",[
-    variable => ['total_export'],
-    exp_sector=>$sector_data[$sector],
-  ]);  
-}
-
-for($j=0;$j<count($value);$j++){
-  $result[$i][$j]['exp_country'] = $area[0];
-    $area2 = $db->select("country_list",["name","area"],["iso"=>$value[$j]['imp_country']]);
-  $result[$i][$j]['imp_country'] =$area2[0]['name'];
-  $result[$i][$j]['area'] = $area2[0]['area'];
-  $result[$i][$j]['value'] = round($value[$j]['sum']/$value2*100,2);
-
-}
 
 }
 
