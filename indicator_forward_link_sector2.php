@@ -35,8 +35,6 @@ foreach($exp_country as $expData){
 
 
 for($i=0;$i< count($final);$i++){
-$result[$i]['source_country'] = "-";
- $result[$i]['variable_set'] = "-";
     $result[$i]['exp_country'] = $final[$i]['exp_country'];
     $result[$i]['exp_sector'] = $final[$i]['exp_sector'];
     $result[$i]['imp_country'] = $final[$i]['imp_country'];

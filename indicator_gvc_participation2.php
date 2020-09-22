@@ -86,7 +86,6 @@ foreach($exp_country as $expData){
 
 for($i=0;$i< count($final1);$i++){
 
-    $result[$i]['source_country'] = "-";
     $result[$i]['exp_country'] = $final1[$i][1];
     $result[$i]['exp_sector'] = $final1[$i][3];
     $result[$i]['imp_country'] = $final1[$i][2];
@@ -96,7 +95,6 @@ for($i=0;$i< count($final1);$i++){
     $result[$i]['indicator'] = 'GVC_part';
 }
 for($j=0;$j< count($final2);$j++){
-    $result[$j+count($final2)]['source_country'] = "-";
     $result[$j+count($final2)]['exp_country'] = $final2[$j][1];
     $result[$j+count($final2)]['exp_sector'] = $final2[$j][3];
     $result[$j+count($final2)]['imp_country'] = $final2[$j][2];
@@ -106,7 +104,6 @@ for($j=0;$j< count($final2);$j++){
     $result[$j+count($final2)]['indicator'] = 'GVC_part';
 }
 for($j=0;$j< count($final3);$j++){
-    $result[$j+count($final3)+count($final2)]['source_country'] = "-";
     $result[$j+count($final3)+count($final2)]['exp_country'] = $final3[$j][1];
     $result[$j+count($final3)+count($final2)]['exp_sector'] = $final3[$j][3];
     $result[$j+count($final3)+count($final2)]['imp_country'] = $final3[$j][2];
@@ -119,7 +116,6 @@ $sumx = count($final1) + count($final2) + count($final3);
 // echo $sumx;
 // echo count($final1A);
 for($j=0;$j< count($final1A);$j++){
-  $result[$j+$sumx]['source_country'] = '-';
    $result[$j+$sumx]['exp_country'] = $final1A[$j][1];
     $result[$j+$sumx]['exp_sector'] = 'all';
     $result[$j+$sumx]['imp_country'] = $final1A[$j][2];
@@ -131,7 +127,6 @@ for($j=0;$j< count($final1A);$j++){
 $sumx = count($final1 ) + count($final2) + count($final3) + count($final1A);
 
 for($j=0;$j< count($final2A);$j++){
-  $result[$j+$sumx]['source_country'] = '-';
    $result[$j+$sumx]['exp_country'] = $final2A[$j][1];
     $result[$j+$sumx]['exp_sector'] = 'all';
     $result[$j+$sumx]['imp_country'] = $final2A[$j][2];
@@ -143,7 +138,6 @@ for($j=0;$j< count($final2A);$j++){
 $sumx = count($final1 ) + count($final2) + count($final3) + count($final1A)+ count($final2A);
 
 for($j=0;$j< count($final3A);$j++){
-  $result[$j+$sumx]['source_country'] = '-';
    $result[$j+$sumx]['exp_country'] = $final3A[$j][1];
     $result[$j+$sumx]['exp_sector'] = 'all';
     $result[$j+$sumx]['imp_country'] = $final3A[$j][2];

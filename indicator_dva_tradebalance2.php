@@ -130,11 +130,9 @@ for($i=0;$i<count($final);$i++){
   }
 
   // echo ($value-$value1)/$value_f*100;
-      $result[$i]['source_country'] = "-";
     $result[$i]['exp_country'] = $final[$i][1];
     $result[$i]['exp_sector'] = $final[$i][3];
     $result[$i]['imp_country'] = $final[$i][2];
-    $result[$i]['variable_set'] = "-";
     $result[$i]['value'] = round(($value-$value1)/$value_f*100,2);
     $result[$i]['year'] = $final[$i][4];
     $result[$i]['indicator'] = 'DVA_tradebalance';
@@ -160,11 +158,9 @@ for($i=0;$i<count($finalA);$i++){
   }
   // echo ($value-$value1)/$value_f*100;
   
-      $result[$i+$sumx]['source_country'] = "-";
     $result[$i+$sumx]['exp_country'] = $finalA[$i]['exp_country'];
     $result[$i+$sumx]['exp_sector'] = 'all';
     $result[$i+$sumx]['imp_country'] = $finalA[$i]['imp_country'];
-    $result[$i+$sumx]['variable_set'] = "-";
     $result[$i+$sumx]['value'] = round(($value-$value1)/$value_f*100,2);
     $result[$i+$sumx]['year'] = $finalA[$i]['year'];
     $result[$i+$sumx]['indicator'] = 'DVA_tradebalance';

@@ -52,21 +52,17 @@ foreach($exp_country as $expData){
 
 for($i=0;$i< count($final);$i++){
 
-    $result[$i]['source_country'] ='-';
     $result[$i]['exp_country'] = $final[$i]['exp_country'];
     $result[$i]['exp_sector'] = $final[$i]['exp_sector'];  
     $result[$i]['imp_country'] = $final[$i]['imp_country'];
-    $result[$i]['variable_set'] = "-";
     $result[$i]['value'] = round($final[$i][0],2);
     $result[$i]['year'] = $final[$i]['year'];
     $result[$i]['indicator'] = 'Forward_link_country';
 }
 for($i=0;$i< count($final2);$i++){
-    $result[$i+count($final)]['source_country'] ='-';
     $result[$i+count($final)]['exp_country'] = $final2[$i]['exp_country'];
     $result[$i+count($final)]['exp_sector'] = 'all';
     $result[$i+count($final)]['imp_country'] = $final2[$i]['imp_country'];
-    $result[$i+count($final)]['variable_set'] = "-";
     $result[$i+count($final)]['value'] = round($final2[$i][0],2);
     $result[$i+count($final)]['year'] = $final2[$i]['year'];
     $result[$i+count($final)]['indicator'] = 'Forward_link_country';
