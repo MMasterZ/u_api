@@ -17,14 +17,14 @@ $value = $db->sum($table_name ,"value",[
     variable => ['DVA_INTrex1', 'DVA_INTrex2', 'DVA_INTrex3' ]
 ]);
 
-$result['contributionto'] = round($value/1000,2);
+$result['contributionto'] = round($value,2);
 
 $value = $db->sum($table_name ,"value",[
     imp_country => $imp_country,
     variable => ['total_export']
 ]);
 
-$result['exportto'] = round($value/1000,2);
+$result['exportto'] = round($value,2);
 
 echo json_encode($result);
 ?>

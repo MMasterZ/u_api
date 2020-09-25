@@ -28,7 +28,7 @@ $value = $db->sum($tableName,"value",[
 }
 
 
-$result['contribution'] = round($value/1000,2);
+$result['contribution'] = round($value,2);
 
 //Gross exports to
 
@@ -43,7 +43,7 @@ $value = $db->sum($tableName,"value",[
     exp_sector=>$sector_data[$sector],
   ]);  
 }
-$result['grossExport'] = round($value/1000,2);
+$result['grossExport'] = round($value,2);
 
 
  echo json_encode($result);

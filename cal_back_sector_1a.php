@@ -22,14 +22,14 @@ $value = $db->sum($tableName ,"value",[
     variable => ['fva_fin_yl', 'fva_int_yl']
 ]);
 
-$result['fromsource'] = round($value/1000,2);
+$result['fromsource'] = round($value,2);
 
 $value = $db->sum($tableName ,"value",[
     imp_country => $imp_country,
     variable => ['total_export']
 ]);
 
-$result['exportto'] = round($value/1000,2);
+$result['exportto'] = round($value,2);
 
  echo json_encode($result);
 ?>
