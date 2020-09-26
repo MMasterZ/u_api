@@ -26,6 +26,7 @@ region =>$region
 
 for($j=0;$j<count($country_data);$j++){
     $exp_country = $country_data[$j];
+    if($exp_country != $imp_country){
     $export_name = $db->select("country_list","name",["iso"=>$exp_country]);
 
     $tableName = $exp_country . "_" . $year;
@@ -53,6 +54,7 @@ for($j=0;$j<count($country_data);$j++){
      
         
     }
+}
 
 }
 
