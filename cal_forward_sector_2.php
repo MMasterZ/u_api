@@ -27,6 +27,8 @@ for($j=0;$j<count($country_data);$j++){
     $exp_country = $country_data[$j];
 $export_name = $db->select("country_list","name",["iso"=>$exp_country]);
 
+if($exp_country != $imp_country){
+
     $tableName = $exp_country . "_" . $year;
     $value2 = $db->sum($tableName,"value",[
         imp_country => $imp_country,
@@ -48,6 +50,8 @@ $export_name = $db->select("country_list","name",["iso"=>$exp_country]);
         $result[$runNumber]['value'] = round($value[$k]['sum']/$value2*100,2);
          $runNumber++;
     }
+}
+    
 
 }
 
