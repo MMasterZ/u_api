@@ -45,13 +45,13 @@ if($import1> $export1){
 }
 
 
-$result['total_value'] = round(($import1 + $export1)/1000);
+$result['total_value'] = round(($import1 + $export1));
 $result['total_percent'] = round(($import1+ $export1) / $total*100);
 
-$result['import_value'] = round($import1/1000);
+$result['import_value'] = round($import1);
 $result['import_percent'] = round($import1 / $total*100);
 
-$result['export_value'] = round($export1/1000);
+$result['export_value'] = round($export1);
 $result['export_percent'] = round($export1 / $total*100);
 
 $result['redsize'] = $redsize;
