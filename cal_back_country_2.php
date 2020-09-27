@@ -57,6 +57,7 @@ for($i=0; $i<count($country_data);$i++){
     $result[$count][$j]['imp_country'] =$area2[0]['name'];
     $result[$count][$j]['area'] = $area2[0]['area'];
     $result[$count][$j]['value'] = round($value[$j]['sum']/$value2*100,2);
+    $result[$count][$j]['valueM'] = round($value[$j]['sum'],2);
   }
   $count++;
   }
