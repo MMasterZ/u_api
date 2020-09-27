@@ -53,6 +53,7 @@ for($i=0; $i<count($country_data);$i++){
     $result[$i][$j]['imp_country'] =$area2[0]['name'];
     $result[$i][$j]['area'] = $area2[0]['area'];
     $result[$i][$j]['value'] = round($value[$j]['sum']/$value2*100,2);
+    $result[$i][$j]['valueM'] = round($value[$j]['sum'],2);
   }
 }
 echo json_encode($result);

@@ -109,14 +109,24 @@ if($sector == 0){
   ]);  
 }
 $total = round($value1,2) + round($value2,2) + round($value3,2) + round($value4,2) + round($value5,2);
-$result[$count]['imp_cons'] = round(round($value1,2)/$total*100,2);
-$result[$count]['imp_exp'] = round(round($value2,2)/$total*100,2);
-$result[$count]['dom_cons'] = round(round($value3,2)/$total*100,2);
-$result[$count]['double'] = round(round($value4,2)/$total*100,2);
-$result[$count]['imp_cont'] = round(round($value5,2)/$total*100,2);
-$count +=1;
+  if($total > 0.5){
+    $total = round($value1,2) + round($value2,2) + round($value3,2) + round($value4,2) + round($value5,2);
+    $result[$count]['imp_cons'] = round(round($value1,2)/$total*100,2);
+    $result[$count]['imp_exp'] = round(round($value2,2)/$total*100,2);
+    $result[$count]['dom_cons'] = round(round($value3,2)/$total*100,2);
+    $result[$count]['double'] = round(round($value4,2)/$total*100,2);
+    $result[$count]['imp_cont'] = round(round($value5,2)/$total*100,2);
+    $count +=1;
+  } 
   }
 }
 
+if($count ==0){
+  $dataShow ['show'] = 'off';
+  echo json_encode($dataShow);
+} else {
 echo json_encode($result);
+}
+
+
 ?>

@@ -102,5 +102,11 @@ if($sector == 0){
 
 $result['red'] = round(($value1 - $value2)/$value_total*100,2);
 
-echo json_encode($result);
+if($value_total >0.5){
+  echo json_encode($result);  
+} else {
+  $dataShow ['show'] = 'off';
+  echo json_encode($dataShow);
+}
+
 ?>
