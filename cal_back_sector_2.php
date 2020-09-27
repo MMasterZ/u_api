@@ -44,13 +44,15 @@ for($j=0;$j<count($country_data);$j++){
 
     for($k=0;$k<count($value);$k++){
         $valueFinal = round($value[$k]['sum']/$value2*100,2);
-     
+        if($valueFinal > 0){
         $result[$runNumber]['exp_country'] = $export_name[0];
         $result[$runNumber]['sector'] = $value[$k]['exp_sector'];
         $sector_data = $db->select("sector_data","grouping",["name"=>$value[$k]['exp_sector']]);
         $result[$runNumber]['grouping'] = $sector_data[0];
         $result[$runNumber]['value'] = round($value[$k]['sum']/$value2*100,2);
         $runNumber++;
+        }
+       
      
         
     }
@@ -59,5 +61,10 @@ for($j=0;$j<count($country_data);$j++){
 }
 
 
- echo json_encode($result);
+if(is_null($result)){
+   $dataShow ['show'] = 'off';
+  echo json_encode($dataShow);
+} else {
+  echo json_encode($result);
+}
 ?>
