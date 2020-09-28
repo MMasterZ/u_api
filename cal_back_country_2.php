@@ -53,13 +53,14 @@ for($i=0; $i<count($country_data);$i++){
   }
 
   for($j=0;$j<count($value);$j++){
-    if(round($value[$j]['sum']/$value2*100,2) >0){
-      $result[$count][$count2]['exp_country'] = $area[0];
+    
+      $result[$count][$j]['exp_country'] = $area[0];
       $area2 = $db->select("country_list",["name","area"],["iso"=>$value[$j]['source_country']]);
-    $result[$count][$count2]['imp_country'] =$area2[0]['name'];
-    $result[$count][$count2]['area'] = $area2[0]['area'];
-    $result[$count][$count2]['value'] = round($value[$j]['sum']/$value2*100,2);
-    $result[$count][$count2]['valueM'] = round($value[$j]['sum'],2);
+    $result[$count][$j]['imp_country'] =$area2[0]['name'];
+    $result[$count][$j]['area'] = $area2[0]['area'];
+    $result[$count][$j]['value'] = round($value[$j]['sum']/$value2*100,2);
+    $result[$count][$j]['valueM'] = round($value[$j]['sum'],2);
+    if(round($value[$j]['sum']/$value2*100,2) >0){
     $count2++;
     }
     
@@ -70,7 +71,7 @@ for($i=0; $i<count($country_data);$i++){
 
 }
 
-if(is_null($result)){
+if($count2 ==0){
    $dataShow ['show'] = 'off';
   echo json_encode($dataShow);
 } else {
