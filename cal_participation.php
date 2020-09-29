@@ -22,11 +22,14 @@ $country_data = $db->select("country_list","iso",[
 region =>$region
 ]);
 
-
+$count = 0;
 for($i=0; $i<count($country_data);$i++){
   $exp_country2 = $country_data[$i];
+  if($exp_country2 != $imp_country){
+
+
 $area = $db->select("country_list","name",["iso"=>$exp_country2]);
-  $result[$i]['country'] =$area[0];
+  $result[$count]['country'] =$area[0];
   $table3_name = $exp_country2 . "_" . $year;
   
   //Forward
@@ -54,8 +57,8 @@ $area = $db->select("country_list","name",["iso"=>$exp_country2]);
   
   }
   
-  $result[$i]['forward_v'] = round($value1[0]['sum'],2);
-  $result[$i]['forward'] = round($value1[0]['sum']/$value2[0]['sum']*100,2);
+  $result[$count]['forward_v'] = round($value1[0]['sum'],2);
+  $result[$count]['forward'] = round($value1[0]['sum']/$value2[0]['sum']*100,2);
 
   //Backward
     if($sector == 0){
@@ -71,8 +74,8 @@ $area = $db->select("country_list","name",["iso"=>$exp_country2]);
   $value3 = $db->query($sql)->fetchAll(); 
   }
  
-  $result[$i]['backward_v'] = round($value3[0]['sum'],2);
-  $result[$i]['backward'] = round($value3[0]['sum']/$value2[0]['sum']*100,2);
+  $result[$count]['backward_v'] = round($value3[0]['sum'],2);
+  $result[$count]['backward'] = round($value3[0]['sum']/$value2[0]['sum']*100,2);
 
 
   
@@ -89,9 +92,11 @@ $area = $db->select("country_list","name",["iso"=>$exp_country2]);
   where imp_country='" . $imp_country. "'and exp_sector = '" . $sector_data[$sector] . "' and (variable = 'DDC_FIN' or variable='DDC_INT' or variable='MDC' or variable='ODC' ) " ;
   $value4 = $db->query($sql)->fetchAll(); 
   }
-   $result[$i]['double_v'] = round($value4[0]['sum'],2);
-  $result[$i]['double'] = round($value4[0]['sum']/$value2[0]['sum']*100,2);
-  $result[$i]['totalGVC'] = round(($value4[0]['sum'] + $value1[0]['sum'] +$value3[0]['sum'])/$value2[0]['sum']*100,2);
+   $result[$count]['double_v'] = round($value4[0]['sum'],2);
+  $result[$count]['double'] = round($value4[0]['sum']/$value2[0]['sum']*100,2);
+  $result[$count]['totalGVC'] = round(($value4[0]['sum'] + $value1[0]['sum'] +$value3[0]['sum'])/$value2[0]['sum']*100,2);
+  $count++;
+    }
 }
 
 

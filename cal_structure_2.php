@@ -108,14 +108,14 @@ if($sector == 0){
     exp_sector=>$sector_data[$sector],
   ]);  
 }
-$total = round($value1,2) + round($value2,2) + round($value3,2) + round($value4,2) + round($value5,2);
-  if($total > 0.5){
-    $total = round($value1,2) + round($value2,2) + round($value3,2) + round($value4,2) + round($value5,2);
-    $result[$count]['imp_cons'] = round(round($value1,2)/$total*100,2);
-    $result[$count]['imp_exp'] = round(round($value2,2)/$total*100,2);
-    $result[$count]['dom_cons'] = round(round($value3,2)/$total*100,2);
-    $result[$count]['double'] = round(round($value4,2)/$total*100,2);
-    $result[$count]['imp_cont'] = round(round($value5,2)/$total*100,2);
+ $total = $value1 + $value2 + $value3 + $value4 +$value5;
+  if($total > 0.005){
+   
+    $result[$count]['imp_cons'] = round($value1/$total*100,2);
+    $result[$count]['imp_exp'] = round($value2/$total*100,2);
+    $result[$count]['dom_cons'] = round($value3/$total*100,2);
+    $result[$count]['double'] = round($value4/$total*100,2);
+    $result[$count]['imp_cont'] = round($value5/$total*100,2);
     $count +=1;
   } 
   }

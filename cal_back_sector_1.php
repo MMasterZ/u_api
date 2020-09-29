@@ -74,12 +74,16 @@ $result[13]['id'] = "N";
 $result[13]['name'] = "Private household service";
 $result[13]['color'] = "#1564C0";
 
-
+$total = 0;
+for($i=0;$i< count($value);$i++){
+    $total += round($value[$i]['sum'],2);
+}
 for($i=0;$i< count($value);$i++){
 
 
     $result[$i+14]['name'] = $value[$i]['exp_sector'];
     $result[$i+14]['value'] = round($value[$i]['sum'],2);
+    $result[$i+14]['valuePrecent'] = round($value[$i]['sum']/$total*100,2);
     $area = $db->select("sector_data",
     "grouping",["name"=>$value[$i]['exp_sector']]);
     // print_r($area);

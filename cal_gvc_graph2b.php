@@ -6,9 +6,9 @@ $exp_country= $data['exporting'];
 $source_country = $data['sourcing'];
 $year = $data['year'];
 
-$exp_country = 'THA';
-$source_country = 'CHN';
-$year = 2017;
+// $exp_country = 'THA';
+// $source_country = 'CHN';
+// $year = 2017;
 
 $tableName = $exp_country . "_" . $year;
 

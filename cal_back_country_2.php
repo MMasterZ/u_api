@@ -43,15 +43,16 @@ for($i=0; $i<count($country_data);$i++){
 
   if($sector == 0){
       $value2 = $db->sum($tableName,"value",[
-      variable => ['total_export']
+      variable => ['total_export'],
+      imp_country =>  $imp_country
   ]);
   } else {
       $value2 = $db->sum($tableName,"value",[
       variable => ['total_export'],
+      imp_country =>  $imp_country,
       exp_sector=>$sector_data[$sector],
     ]);  
   }
-
   for($j=0;$j<count($value);$j++){
     
       $result[$count][$j]['exp_country'] = $area[0];
