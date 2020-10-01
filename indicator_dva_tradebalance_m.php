@@ -46,10 +46,10 @@ $sectorText = substr($sectorText,0,-1);
 $sectorText = $sectorText . ")";
 // echo $sectorText;
 $finalA = [];
-$finalgA = [];
+
 
 $final = [];
-$finalg=[];
+
 
 foreach($exp_country as $expData){
     foreach($year as $yearData){
@@ -59,19 +59,13 @@ foreach($exp_country as $expData){
         $value = $db->query($sql)->fetchAll();
         $final = array_merge($final,$value);
 
-        $sql  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'total_export') ". $impText . $sectorText . " group by imp_country, exp_sector" ;
-        
-        $value2 = $db->query($sql)->fetchAll();
-        $finalg = array_merge($finalg,$value2);
+      
         } 
         if($sectorZero == 1){
           $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'DVA_INT' or variable='DVA_FIN'  ) ". $impText . " group by imp_country" ;
           $value = $db->query($sql)->fetchAll();
           $finalA = array_merge($finalA,$value);
-          $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'total_export') ". $impText .  " group by imp_country" ;
-          $value2 = $db->query($sql)->fetchAll();
-         
-          $finalgA = array_merge($finalgA,$value2);
+        
         }
 
     }
@@ -98,7 +92,7 @@ foreach($imp_country as $expData){
     foreach($year as $yearData){
         $tableName =  $expData . "_" . $yearData;
         if(count($sector) > 0){  
-          $sql  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'DVA_INT' or variable='DVA_FIN') ". $impText . $sectorText . " group by imp_country, exp_sector" ;
+          $sql  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'DVA_INT' or variable='DVA_FIN' ) ". $impText . $sectorText . " group by imp_country, exp_sector" ;
           $value = $db->query($sql)->fetchAll();
           $final2 = array_merge($final2,$value);
         }
@@ -109,8 +103,10 @@ foreach($imp_country as $expData){
         }
     }
 }
-
-
+// print_r($final);
+// print_r($finalA);
+// print_r($final2);
+// print_r($final2A);
 
 for($i=0;$i<count($final);$i++){
   $exp1 = $final[$i][1];
@@ -125,20 +121,15 @@ for($i=0;$i<count($final);$i++){
     }
   }
 
-  for($j=0;$j<count($finalg);$j++){
-    if($finalg[$j][1] == $exp1 && $finalg[$j][2] == $imp1 && $finalg[$j][3] == $sector1 && $finalg[$j][4] == $year1){
-      $value_f = $finalg[$j][0];
-    break;
-    }
-  }
+
 
   // echo ($value-$value1)/$value_f*100;
     $result[$i]['exp_country'] = $final[$i][1];
     $result[$i]['exp_sector'] = $final[$i][3];
     $result[$i]['imp_country'] = $final[$i][2];
-    $result[$i]['value'] = round(($value-$value1)/$value_f*100,2);
+    $result[$i]['value'] = round(($value-$value1),2);
     $result[$i]['year'] = $final[$i][4];
-    $result[$i]['indicator'] = 'DVA_tradebalance_$';
+    $result[$i]['indicator'] = 'DVA_tradebalance';
 }
 $sumx = count($result);
 for($i=0;$i<count($finalA);$i++){
@@ -161,10 +152,17 @@ for($i=0;$i<count($finalA);$i++){
   }
   // echo ($value-$value1)/$value_f*100;
   
+  echo $value;
+  echo "---x";
+echo $value1;
+  echo "y---";
+  echo $value2;
+  echo "---";
+  echo $value_f;
     $result[$i+$sumx]['exp_country'] = $finalA[$i]['exp_country'];
     $result[$i+$sumx]['exp_sector'] = 'all';
     $result[$i+$sumx]['imp_country'] = $finalA[$i]['imp_country'];
-    $result[$i+$sumx]['value'] = round(($value-$value1)/$value_f*100,2);
+    $result[$i+$sumx]['value'] = round(($value-$value1),2);
     $result[$i+$sumx]['year'] = $finalA[$i]['year'];
     $result[$i+$sumx]['indicator'] = 'DVA_tradebalance_$';
 }
