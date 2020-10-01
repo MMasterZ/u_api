@@ -121,7 +121,7 @@ for($j=0;$j< count($final1A);$j++){
     $result[$j+$sumx]['imp_country'] = $final1A[$j][2];
     $result[$j+$sumx]['variable_set'] = "forward";
     $result[$j+$sumx]['value'] = round($final1A[$j][0],2);
-    $result[$j+$sumx]['year'] = $final1A[$j][4];
+    $result[$j+$sumx]['year'] = $final1A[$j][3];
     $result[$j+$sumx]['indicator'] = 'GVC_part_$';
 }
 $sumx = count($final1 ) + count($final2) + count($final3) + count($final1A);
@@ -132,7 +132,7 @@ for($j=0;$j< count($final2A);$j++){
     $result[$j+$sumx]['imp_country'] = $final2A[$j][2];
     $result[$j+$sumx]['variable_set'] = "backward";
     $result[$j+$sumx]['value'] = round($final2A[$j][0],2);
-    $result[$j+$sumx]['year'] = $final2A1[$j][4];
+    $result[$j+$sumx]['year'] = $final2A[$j][3];
     $result[$j+$sumx]['indicator'] = 'GVC_part_$';
 }
 $sumx = count($final1 ) + count($final2) + count($final3) + count($final1A)+ count($final2A);
@@ -143,7 +143,7 @@ for($j=0;$j< count($final3A);$j++){
     $result[$j+$sumx]['imp_country'] = $final3A[$j][2];
     $result[$j+$sumx]['variable_set'] = "double";
     $result[$j+$sumx]['value'] = round($final3A[$j][0],2);
-    $result[$j+$sumx]['year'] = $final3A[$j][4];
+    $result[$j+$sumx]['year'] = $final3A[$j][3];
     $result[$j+$sumx]['indicator'] = 'GVC_part_$';
 }
 

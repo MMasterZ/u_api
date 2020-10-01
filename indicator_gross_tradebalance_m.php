@@ -121,7 +121,7 @@ for($i=0;$i<count($final);$i++){
     $result[$i]['imp_country'] = $final[$i][2];
     $result[$i]['value'] = round(($value-$value1),2);
     $result[$i]['year'] = $final[$i][4];
-    $result[$i]['indicator'] = 'Gross_tradebalance';
+    $result[$i]['indicator'] = 'Gross_tradebalance_$';
 }
 
 $sumx = count($result);
@@ -144,7 +144,7 @@ for($i=0;$i<count($finalA);$i++){
     $result[$i+$sumx]['imp_country'] = $finalA[$i]['imp_country'];
     $result[$i+$sumx]['value'] = round(($value-$value1),2);
     $result[$i+$sumx]['year'] = $finalA[$i]['year'];
-    $result[$i+$sumx]['indicator'] = 'Gross_tradebalance';
+    $result[$i+$sumx]['indicator'] = 'Gross_tradebalance_$';
 }
 echo json_encode($result);
 
