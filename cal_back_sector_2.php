@@ -50,6 +50,7 @@ for($j=0;$j<count($country_data);$j++){
         $sector_data = $db->select("sector_data","grouping",["name"=>$value[$k]['exp_sector']]);
         $result[$runNumber]['grouping'] = $sector_data[0];
         $result[$runNumber]['value'] = round($value[$k]['sum']/$value2*100,2);
+        $result[$runNumber]['valueM'] = $value[$k]['sum'];
         $runNumber++;
         }
        

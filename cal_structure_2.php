@@ -111,11 +111,16 @@ if($sector == 0){
  $total = $value1 + $value2 + $value3 + $value4 +$value5;
   if($total > 0.005){
    
-    $result[$count]['imp_cons'] = round($value1/$total*100,2);
-    $result[$count]['imp_exp'] = round($value2/$total*100,2);
-    $result[$count]['dom_cons'] = round($value3/$total*100,2);
-    $result[$count]['double'] = round($value4/$total*100,2);
-    $result[$count]['imp_cont'] = round($value5/$total*100,2);
+    $result[$count]['imp_cons']['precent'] = round($value1/$total*100,2);
+    $result[$count]['imp_cons']['value'] = round($value1,2);
+    $result[$count]['imp_exp']['precent'] = round($value2/$total*100,2);
+    $result[$count]['imp_exp']['value'] = round($value2,2);
+    $result[$count]['dom_cons']['precent'] = round($value3/$total*100,2);
+    $result[$count]['dom_cons']['value'] = round($value3,2);
+    $result[$count]['double']['precent'] = round($value4/$total*100,2);
+     $result[$count]['double']['value'] = round($value4,2);
+    $result[$count]['imp_cont']['precent'] = round($value5/$total*100,2);
+    $result[$count]['imp_cont']['value'] = round($value5,2);
     $count +=1;
   } 
   }

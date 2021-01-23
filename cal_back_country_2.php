@@ -59,8 +59,8 @@ for($i=0; $i<count($country_data);$i++){
       $area2 = $db->select("country_list",["name","area"],["iso"=>$value[$j]['source_country']]);
     $result[$count][$j]['imp_country'] =$area2[0]['name'];
     $result[$count][$j]['area'] = $area2[0]['area'];
-    $result[$count][$j]['value'] = round($value[$j]['sum']/$value2*100,2);
-    $result[$count][$j]['valueM'] = round($value[$j]['sum'],2);
+    $result[$count][$j]['value'] = round($value[$j]['sum']/$value2*100,6);
+    $result[$count][$j]['valueM'] = round($value[$j]['sum'],6);
     if(round($value[$j]['sum']/$value2*100,2) >0){
     $count2++;
     }
