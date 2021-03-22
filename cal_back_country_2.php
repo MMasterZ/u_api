@@ -47,20 +47,32 @@ for($i=0; $i<count($country_data);$i++){
       imp_country =>  $imp_country
   ]);
   } else {
-      $value2 = $db->sum($tableName,"value",[
-      variable => ['total_export'],
-      imp_country =>  $imp_country,
-      exp_sector=>$sector_data[$sector],
-    ]);  
+    //   $value2 = $db->sum($tableName,"value",[
+    //   variable => ['total_export'],
+    //   imp_country =>  $imp_country,
+    //   exp_sector=>$sector_data[$sector],
+    // ]);  
+
+    $sql2 = "select sum(value) as sum from " . $tableName . " where (variable = 'total_export') and imp_country = '" . $imp_country . "' and exp_sector = '" . $sector_data[$sector] . "'";
+    // echo $sql2;
+     $value2 = $db->query($sql2)->fetchAll(); 
+     $value2 = $value2[0][0];
+
   }
+ 
+
+
   for($j=0;$j<count($value);$j++){
-    
-      $result[$count][$j]['exp_country'] = $area[0];
+    $result[$count][$j]['exp_country'] = $area[0];
       $area2 = $db->select("country_list",["name","area"],["iso"=>$value[$j]['source_country']]);
     $result[$count][$j]['imp_country'] =$area2[0]['name'];
     $result[$count][$j]['area'] = $area2[0]['area'];
-    $result[$count][$j]['value'] = round($value[$j]['sum']/$value2*100,6);
-    $result[$count][$j]['valueM'] = round($value[$j]['sum'],6);
+     if($value2 > 0){
+    $result[$count][$j]['value'] = round($value[$j]['sum']/$value2*100,2);
+     } else {
+       $result[$count][$j]['value'] = 0;
+     }
+    $result[$count][$j]['valueM'] = round($value[$j]['sum'],2);
     if(round($value[$j]['sum']/$value2*100,2) >0){
     $count2++;
     }
@@ -68,9 +80,12 @@ for($i=0; $i<count($country_data);$i++){
   }
   $count++;
   }
-
+  
+// print_r($result);
 
 }
+
+//  echo json_encode($result);
 
 if($count2 ==0){
    $dataShow ['show'] = 'off';

@@ -26,10 +26,18 @@ use Medoo\Medoo;
 // 	'password' => 'chomart12',
 // ]);
 
+// $db = new Medoo([
+// 	// required
+// 	'database_type' => 'mysql',
+// 	'database_name' => 'unescap',
+// 	'server' => 'localhost',
+// 	'username' => 'root',
+// 	'password' => '12345678',
+// ]);
 $db = new Medoo([
 	// required
 	'database_type' => 'mysql',
-	'database_name' => 'unescap',
+	'database_name' => 'new_un',
 	'server' => 'localhost',
 	'username' => 'root',
 	'password' => '12345678',

@@ -63,6 +63,8 @@ $vfinale = ($v1- $v2)/$vgross*100;
 $result4['valueAddTradeBalance']['2007'] = round($vfinale,1);
 echo "\n**********4********\n";
 echo json_encode($result4);
+$dataInput = json_encode($result4);
+$db->update("country_brief",["set4"=>$dataInput],["AND"=>["economy"=>$exp_country,"year"=>$year]]);
 
 
 ?>

@@ -17,11 +17,12 @@ require_once('connection.php');
 			$getdata = $db ->select('account','*');
 			
 				for($i=0;$i<count($getdata);$i++){
-					$result[$i]['id'] = $getdata[$i]['id'];
-					$result[$i]['username'] = $getdata[$i]['username'];
-					$result[$i]['email'] = $getdata[$i]['email'];
-                    $result[$i]['password'] = $getdata[$i]['password'];
-                    $result[$i]['status'] = $getdata[$i]['status'];
+					 $result[$i]['id'] = $getdata[$i]['id'];
+        $result[$i]['email'] = $getdata[$i]['email'];
+        $result[$i]['password'] = $getdata[$i]['password'];
+        $result[$i]['country'] = $getdata[$i]['country'];
+        $result[$i]['organization'] = $getdata[$i]['organization'];
+        $result[$i]['datetime'] = $getdata[$i]['datetime'];
 				}
 
 				echo json_encode($result);

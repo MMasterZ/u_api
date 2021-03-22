@@ -54,5 +54,6 @@ for($i=0;$i<count($backward);$i++){
  }
  echo "\n**********7********\n";
  echo json_encode($result);
-
+ $dataInput = json_encode($result);
+$db->update("country_brief",["set7"=>$dataInput],["AND"=>["economy"=>$exp_country,"year"=>$year]]);
 ?>

@@ -13,10 +13,10 @@ $imp_country = $data['importing'];
 $year = $data['year'];
 $sector = $data['sector'];
 
-// $exp_country = ['THA',];
-// $imp_country = ['CHN'];
-// $year = ['2017'];
-// $sector = [1,12];
+$exp_country = ['ARG',];
+$imp_country = ['AUS'];
+$year = ['2017'];
+$sector = [0];
 
 $tableName = $exp_country . "_" . $year;
 
@@ -76,18 +76,22 @@ foreach($exp_country as $expData){
           $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'DVA_INTrex1' or variable='DVA_INTrex2'  or variable='DVA_INTrex3') ". $impText  . " group by imp_country" ;
         $value = $db->query($sql)->fetchAll();
         $final1A = array_merge($final1A,$value);
+        // print_r($final1A);
         
         $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'MVA_FIN' or variable='MVA_INT'  or variable='OVA_FIN'  or variable='OVA_INT') ". $impText . " group by imp_country" ;
         $value = $db->query($sql)->fetchAll();
         $final2A = array_merge($final2A,$value);
+        // print_r($final2A);
        $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'DDC_FIN' or variable='DDC_INT'  or variable='MDC'  or variable='ODC') ". $impText . " group by imp_country" ;
         $value = $db->query($sql)->fetchAll();
         $final3A = array_merge($final3A,$value);
+        // print_r($final3A);
         
 
          $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable='total_export') ". $impText . " group by imp_country" ;
         $value = $db->query($sql)->fetchAll();
         $finalsumA = array_merge($finalsumA,$value);
+        // print_r($finalsumA);
       }
 
         // print_r($final1A);
@@ -125,7 +129,7 @@ for($j=0;$j< count($final3);$j++){
 }
 $sumx = count($final1) + count($final2) + count($final3);
 // echo $sumx;
-// echo count($final1A);
+// print_r($final1A);
 for($j=0;$j< count($final1A);$j++){
    $result[$j+$sumx]['exp_country'] = $final1A[$j][1];
     $result[$j+$sumx]['exp_sector'] = 'all';
@@ -135,6 +139,7 @@ for($j=0;$j< count($final1A);$j++){
     $result[$j+$sumx]['year'] = $final1A[$j][3];
     $result[$j+$sumx]['indicator'] = 'GVC_part';
 }
+
 $sumx = count($final1 ) + count($final2) + count($final3) + count($final1A);
 
 for($j=0;$j< count($final2A);$j++){
@@ -142,7 +147,7 @@ for($j=0;$j< count($final2A);$j++){
     $result[$j+$sumx]['exp_sector'] = 'all';
     $result[$j+$sumx]['imp_country'] = $final2A[$j][2];
     $result[$j+$sumx]['variable_set'] = "backward";
-    $result[$j+$sumx]['value'] = round($final2A[$j][0]/$finalsum[$j][0]*100,2);
+    $result[$j+$sumx]['value'] = round($final2A[$j][0]/$finalsumA[$j][0]*100,2);
     $result[$j+$sumx]['year'] = $final2A[$j][3];
     $result[$j+$sumx]['indicator'] = 'GVC_part';
 }
@@ -153,10 +158,10 @@ for($j=0;$j< count($final3A);$j++){
     $result[$j+$sumx]['exp_sector'] = 'all';
     $result[$j+$sumx]['imp_country'] = $final3A[$j][2];
     $result[$j+$sumx]['variable_set'] = "double";
-    $result[$j+$sumx]['value'] = round($final3A[$j][0]/$finalsum[$j][0]*100,2);
+    $result[$j+$sumx]['value'] = round($final3A[$j][0]/$finalsumA[$j][0]*100,2);
     $result[$j+$sumx]['year'] = $final3A[$j][3];
     $result[$j+$sumx]['indicator'] = 'GVC_part';
 }
-
+// print_r($result);
 echo json_encode($result);
 ?>

@@ -52,8 +52,12 @@ for($i=0; $i<count($country_data);$i++){
     $area2 = $db->select("country_list",["name","area"],["iso"=>$value[$j]['imp_country']]);
     $result[$i][$j]['imp_country'] =$area2[0]['name'];
     $result[$i][$j]['area'] = $area2[0]['area'];
-    $result[$i][$j]['value'] = round($value[$j]['sum']/$value2*100,6);
-    $result[$i][$j]['valueM'] = round($value[$j]['sum'],6);
+     if($value2 > 0){
+    $result[$i][$j]['value'] = round($value[$j]['sum']/$value2*100,2);
+     }else {
+       $result[$i][$j]['value'] = 0;
+     }
+    $result[$i][$j]['valueM'] = round($value[$j]['sum'],2);
   }
 }
 echo json_encode($result);

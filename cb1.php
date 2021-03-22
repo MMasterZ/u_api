@@ -37,5 +37,6 @@ $result['usedInExportProduction']['ratio'] =  round($usedInExport[0][0]/$total*1
 
 echo "********* 1 ********\n";
 echo json_encode($result);
-
+ $dataInput = json_encode($result);
+$db->update("country_brief",["set1"=>$dataInput],["AND"=>["economy"=>$exp_country,"year"=>$year]]);
 ?>

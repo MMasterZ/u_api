@@ -60,4 +60,7 @@ $result5['grossTradeBalance']['2007'] = round($vfinale,1);
 
 echo "\n**********5********\n";
 echo json_encode($result5);
+$dataInput = json_encode($result5);
+$db->update("country_brief",["set5"=>$dataInput],["AND"=>["economy"=>$exp_country,"year"=>$year]]);
+
 ?>
