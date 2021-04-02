@@ -40,7 +40,7 @@ $db = new Medoo([
 	'database_name' => 'new_un',
 	'server' => 'localhost',
 	'username' => 'root',
-	'password' => '12345678',
+	'password' => '',
 ]);
 
 // phpinfo();
