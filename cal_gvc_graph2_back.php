@@ -7,12 +7,12 @@ $tableName = $exp_country . "_" . $year;
 
 
 //backward
-$sql  = "select sum(value) as sum, source_country from " . $tableName . " where  (variable = 'fva_fin_yl' or variable='fva_int_yl')  group by source_country order by sum DESC limit 5" ;
+$sql  = "select sum(value) as sum, source_country from " . $tableName . " where  (variable = 'fva_yl')  group by source_country order by sum DESC limit 5" ;
 $backward = $db->query($sql)->fetchAll();
 
 
 //extra cal -a-1
-$sql  = "select sum(value) as sum from " . $tableName . " where  (variable = 'MVA_FIN' or variable='fva_fin_yl' or variable='fva_int_yl')  group by source_country order by sum DESC limit 5"  ;
+$sql  = "select sum(value) as sum from " . $tableName . " where  (variable = 'MVA_FIN' or variable='fva_yl')  group by source_country order by sum DESC limit 5"  ;
 $backward_a_1 = $db->query($sql)->fetchAll();
 
 
@@ -25,7 +25,7 @@ for($i=0;$i<count($backward);$i++){
  
 
     //backwar-layer-2
-    $sql  = "select sum(value) as sum,  exp_sector from " . $tableName . " where  source_country = '" . $source_country ."' and (variable = 'fva_fin_yl' or variable='fva_int_yl')  group by exp_sector order by sum DESC limit 5" ;
+    $sql  = "select sum(value) as sum,  exp_sector from " . $tableName . " where  source_country = '" . $source_country ."' and (variable = 'fva_yl' )  group by exp_sector order by sum DESC limit 5" ;
     $backward2 = $db->query($sql)->fetchAll();
 
     $result[$i]['a'] = $source_country;

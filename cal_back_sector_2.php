@@ -37,7 +37,7 @@ for($j=0;$j<count($country_data);$j++){
 
     $sector = $db->select("sector_data","*",[]);
 
-    $sql  = "select sum(value) as sum,exp_sector from ". $tableName ." where  imp_country = '". $imp_country . "'and source_country = '". $source_country  ."' and (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by exp_sector" ;
+    $sql  = "select sum(value) as sum,exp_sector from ". $tableName ." where  imp_country = '". $imp_country . "'and source_country = '". $source_country  ."' and (variable = 'fva_yl'  )  group by exp_sector" ;
 
     $value = $db->query($sql)->fetchAll();
 

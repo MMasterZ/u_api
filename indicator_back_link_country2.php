@@ -50,13 +50,13 @@ foreach($exp_country as $expData){
     foreach($year as $yearData){
         $tableName =  $expData . "_" . $yearData;
         if(count($sector) > 0){  
-            $sql  = "select sum(value) as sum,exp_country, imp_country,exp_sector,source_country, year  from " . $tableName . " where (variable = 'fva_fin_yl' or variable='fva_int_yl') ". $impText . $sectorText . " group by imp_country, exp_sector, source_country" ;
+            $sql  = "select sum(value) as sum,exp_country, imp_country,exp_sector,source_country, year  from " . $tableName . " where (variable = 'fva_yl' ) ". $impText . $sectorText . " group by imp_country, exp_sector, source_country" ;
         //  echo $sql;
          $value = $db->query($sql)->fetchAll();
          $final = array_merge($final,$value);
         } 
         if($sectorZero == 1){
-       $sql  = "select sum(value) as sum,exp_country, imp_country,source_country, year  from " . $tableName . " where (variable = 'fva_fin_yl' or variable='fva_int_yl') ". $impText .  " group by imp_country, source_country" ;
+       $sql  = "select sum(value) as sum,exp_country, imp_country,source_country, year  from " . $tableName . " where (variable = 'fva_yl' ) ". $impText .  " group by imp_country, source_country" ;
     //    echo $sql;
         
         $value = $db->query($sql)->fetchAll();

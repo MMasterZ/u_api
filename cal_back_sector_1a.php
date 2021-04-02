@@ -19,7 +19,7 @@ $tableName = $exp_country . "_" . $year;
 $value = $db->sum($tableName ,"value",[
     imp_country => $imp_country,
     source_country =>$source_country,
-    variable => ['fva_fin_yl', 'fva_int_yl']
+    variable => ['fva_yl']
 ]);
 
 $result['fromsource'] = round($value,2);

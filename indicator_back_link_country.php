@@ -15,13 +15,13 @@ $tableName = $exp_country . "_" . $year;
 
 if($sector == 0){
 $sql  = "select sum(value) as sum,source_country,exp_country, imp_country  from " . $tableName . " 
-where exp_country='" . $exp_country. "'and imp_country = '". $imp_country ."' and year = " . $year ." and (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by source_country" ;
+where exp_country='" . $exp_country. "'and imp_country = '". $imp_country ."' and year = " . $year ." and (variable = 'fva_yl'  )  group by source_country" ;
 $value = $db->query($sql)->fetchAll();
 
 } else {
  $sql  = "select sum(value) as sum,source_country,exp_sector, exp_country, imp_country  from 
 " . $tableName . " 
-where exp_country='" . $exp_country. "'and exp_sector = '" . $sector_data[$sector] . "' and imp_country = '". $imp_country ."' and year = " . $year ." and (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by source_country" ;
+where exp_country='" . $exp_country. "'and exp_sector = '" . $sector_data[$sector] . "' and imp_country = '". $imp_country ."' and year = " . $year ." and (variable = 'fva_yl'  )  group by source_country" ;
 $value = $db->query($sql)->fetchAll(); 
 }
 

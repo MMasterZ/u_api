@@ -28,7 +28,7 @@ for($i=0; $i<count($country_data);$i++){
     $result[$country_data[$i]]['row']['ratio'] =0;
     $tableName = $country_data[$i] . "_" . $year;
     $sql  = "select sum(value) as sum, source_country  from " . $tableName . "  
-  where variable = 'fva_fin_yl' or variable='fva_int_yl' group by source_country" ;
+  where variable = 'fva_yl'  group by source_country" ;
   $value1 = $db->query($sql)->fetchAll();
 
   

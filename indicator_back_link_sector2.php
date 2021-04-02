@@ -41,7 +41,7 @@ $final = [];
 foreach($exp_country as $expData){
     foreach($year as $yearData){
         $tableName =  $expData . "_" . $yearData;
-        $sql  = "select sum(value) as sum,source_country,exp_country,exp_sector, imp_country  from " . $tableName . "  where (variable = 'fva_fin_yl' or variable='fva_int_yl' )" . $impText . $sourceText . " group by exp_sector, imp_country, source_country" ;
+        $sql  = "select sum(value) as sum,source_country,exp_country,exp_sector, imp_country  from " . $tableName . "  where (variable = 'fva_yl' )" . $impText . $sourceText . " group by exp_sector, imp_country, source_country" ;
         // echo $sql;
         $value = $db->query($sql)->fetchAll();
         $final = array_merge($final,$value);

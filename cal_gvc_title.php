@@ -25,14 +25,26 @@ $year = $_GET['year'];
 $tableName = $country . "_" . $year;
 
 $import1 = $db->sum($tableName,"value",[
-    variable => ['MVA_FIN', 'MVA_INT','OVA_FIN','OVA_INT']
+    "AND"=>[
+    variable => ['MVA_FIN', 'MVA_INT','OVA_FIN','OVA_INT'],
+    "imp_country[!]"=>['sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'],
+    ]
+
 ]);
+
+
 $total = $db->sum($tableName,"value",[
-    variable => ['total_export']
+    "AND"=>[
+     variable => ['total_export'],
+    "imp_country[!]"=>['sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'],
+    ]
 ]);
 
 $export1 = $db->sum($tableName,"value",[
-    variable => ['DVA_INTrex1', 'DVA_INTrex2','DVA_INTrex3']
+     "AND"=>[
+    variable => ['DVA_INTrex1', 'DVA_INTrex2','DVA_INTrex3'],
+    "imp_country[!]"=>['sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'],
+    ]
 ]);
 
 
