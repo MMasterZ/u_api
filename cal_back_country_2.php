@@ -34,10 +34,10 @@ for($i=0; $i<count($country_data);$i++){
     $tableName = $imp_country2 . "_" . $year;
 
     if($sector == 0){
-      $sql  = "select sum(value) as sum, source_country  from " . $tableName . " where (variable = 'fva_fin_yl' or variable='fva_int_yl' ) and imp_country='" . $imp_country . "' group by source_country" ;
+      $sql  = "select sum(value) as sum, source_country  from " . $tableName . " where (variable = 'fva_yl'  ) and imp_country='" . $imp_country . "' group by source_country" ;
       $value = $db->query($sql)->fetchAll();
     } else {
-      $sql  = "select sum(value) as sum, source_country  from " . $tableName . " where exp_sector = '" . $sector_data[$sector]  ."' and (variable = 'fva_fin_yl' or variable='fva_int_yl' ) and imp_country='" . $imp_country . "' group by source_country" ;
+      $sql  = "select sum(value) as sum, source_country  from " . $tableName . " where exp_sector = '" . $sector_data[$sector]  ."' and (variable = 'fva_yl'  ) and imp_country='" . $imp_country . "' group by source_country" ;
       $value = $db->query($sql)->fetchAll(); 
     }
 

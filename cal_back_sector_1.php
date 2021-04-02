@@ -15,7 +15,7 @@ $tableName = $exp_country . "_" . $year;
 
 
 $sql  = "select sum(value) as sum,source_country,exp_country,exp_sector, imp_country  from ". $tableName ."
-where  imp_country = '". $imp_country . "'and source_country = '". $source_country ."' and (variable = 'fva_fin_yl' or variable='fva_int_yl' )  group by exp_sector" ;
+where  imp_country = '". $imp_country . "'and source_country = '". $source_country ."' and (variable = 'fva_yl' )  group by exp_sector" ;
 
 $value = $db->query($sql)->fetchAll();
 $result[0]['id'] = "A";

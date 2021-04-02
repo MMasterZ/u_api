@@ -19,13 +19,13 @@ $tableName = $exp_country . "_" . $year;
 if($sector == 0){
 $value = $db->sum($tableName,"value",[
     imp_country => $imp_country,
-    variable => ['fva_fin_yl','fva_int_yl']
+    variable => ['fva_yl']
 ]);
 
 } else {
  $value = $db->sum($tableName,"value",[
     imp_country => $imp_country,
-    variable => ['fva_fin_yl', 'fva_int_yl'],
+    variable => ['fva_yl'],
     exp_sector=>$sector_data[$sector],
   ]);  
 }

@@ -4,12 +4,12 @@ $tableName = $exp_country . "_" . $year;
 
 
 //backward
-$sql  = "select sum(value) as sum, source_country from " . $tableName . " where  (variable = 'fva_fin_yl' or variable='fva_int_yl')  group by source_country order by sum DESC limit 11" ;
+$sql  = "select sum(value) as sum, source_country from " . $tableName . " where  (variable = 'fva_yl' )  group by source_country order by sum DESC limit 11" ;
 $backward = $db->query($sql)->fetchAll();
 
 
 //extra cal -a-1
-$sql  = "select sum(value) as sum from " . $tableName . " where  (variable = 'MVA_FIN' or variable='fva_fin_yl' or variable='fva_int_yl')  group by source_country order by sum DESC limit 11"  ;
+$sql  = "select sum(value) as sum from " . $tableName . " where  (variable = 'MVA_FIN' or variable='fva_yl' )  group by source_country order by sum DESC limit 11"  ;
 $backward_a_1 = $db->query($sql)->fetchAll();
 
 
