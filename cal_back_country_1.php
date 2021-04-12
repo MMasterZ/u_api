@@ -15,13 +15,13 @@ $tableName = $exp_country . "_" . $year;
 
 if($sector == 0){
 $sql  = "select sum(value) as sum,source_country, imp_country  from " . $tableName . " 
-where imp_country = '". $imp_country ."' and (variable = 'fva_yl')  group by source_country" ;
+where imp_country = '". $imp_country ."' and (variable = 'fva_yl')  and ( source_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld')) group by source_country" ;
 $value = $db->query($sql)->fetchAll();
 
 } else {
  $sql  = "select sum(value) as sum,source_country,exp_sector,  imp_country  from 
 " . $tableName . " 
-where exp_sector = '" . $sector_data[$sector] . "' and imp_country = '". $imp_country ."' and (variable = 'fva_yl'  )  group by source_country" ;
+where exp_sector = '" . $sector_data[$sector] . "' and imp_country = '". $imp_country ."' and (variable = 'fva_yl'  ) and ( source_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))   group by source_country" ;
 $value = $db->query($sql)->fetchAll(); 
 }
 

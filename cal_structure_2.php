@@ -1,7 +1,7 @@
 <?php
 require_once('connection.php');
 require_once('sector_data.php');
-
+require_once('country_list.php');
 
 $exp_country = $_GET['exp_country'];
 $imp_country = $_GET['imp_country'];
@@ -13,12 +13,16 @@ $sector = $_GET['sector'];
 $region_data = $db->select("country_list","region",[
 iso =>$exp_country
 ]);
-$region = $region_data[0];
-
-//get country in same region
-$country_data = $db->select("country_list","iso",[
-region =>$region
-]);
+if(count($region_data)==0){
+  $country_data = country_list($exp_country);
+} else {
+  $region = $region_data[0];
+  //get country in same region
+  $country_data = $db->select("country_list","iso",[
+  region =>$region
+  ]);
+}
+// print_r($country_data);
 $count = 0;
 for($i=0; $i<count($country_data);$i++){
   $value1 =0;
@@ -29,7 +33,7 @@ for($i=0; $i<count($country_data);$i++){
   $exp_country2 = $country_data[$i];
  
  
-  if($exp_country2 != $imp_country){
+  // if($exp_country2 != $imp_country){
     
      $area = $db->select("country_list","name",["iso"=>$exp_country2]);
      $result[$count]['imp_country'] =$area[0];
@@ -109,16 +113,22 @@ if($sector == 0){
   ]);  
 }
  $total = $value1 + $value2 + $value3 + $value4 +$value5;
+//  echo $total . "--";
   if($total > 0.005){
    
-    $result[$count]['imp_cons'] = round($value1/$total*100,2);
-    $result[$count]['imp_exp'] = round($value2/$total*100,2);
-    $result[$count]['dom_cons'] = round($value3/$total*100,2);
-    $result[$count]['double'] = round($value4/$total*100,2);
-    $result[$count]['imp_cont'] = round($value5/$total*100,2);
+    $result[$count]['imp_cons']['precent'] = round($value1/$total*100,2);
+    $result[$count]['imp_cons']['value'] = round($value1,2);
+    $result[$count]['imp_exp']['precent'] = round($value2/$total*100,2);
+    $result[$count]['imp_exp']['value'] = round($value2,2);
+    $result[$count]['dom_cons']['precent'] = round($value3/$total*100,2);
+    $result[$count]['dom_cons']['value'] = round($value3,2);
+    $result[$count]['double']['precent'] = round($value4/$total*100,2);
+     $result[$count]['double']['value'] = round($value4,2);
+    $result[$count]['imp_cont']['precent'] = round($value5/$total*100,2);
+    $result[$count]['imp_cont']['value'] = round($value5,2);
     $count +=1;
   } 
-  }
+  // }
 }
 
 if($count ==0){

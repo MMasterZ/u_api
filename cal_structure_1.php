@@ -7,7 +7,6 @@ $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 $sector = $_GET['sector'];
 $table_name = $exp_country . "_" . $year;
-
 /// calculation of imp cons
 if($sector == 0){
     $value = $db->sum($table_name,"value",[

@@ -51,7 +51,9 @@ for($j=0;$j<count($country_data);$j++){
         $result[$runNumber]['grouping'] = $sector_data[0];
         if($value2 > 0){
         $result[$runNumber]['value'] = round($value[$k]['sum']/$value2*100,2);
+        $result[$runNumber]['valueM']   = round($value[$k]['sum'],2);
         } else {
+          $result[$runNumber]['valueM']   = 0;
          $result[$runNumber]['value'] = 0; 
         }
         $runNumber++;
