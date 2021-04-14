@@ -6,6 +6,7 @@
 
 require_once('connection.php');
 require_once('sector_data.php');
+require_once('country_list.php');
 
 $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
@@ -17,12 +18,15 @@ $sector = $_GET['sector'];
 $region_data = $db->select("country_list","region",[
 iso =>$exp_country
 ]);
-$region = $region_data[0];
-
-//get country in same region
-$country_data = $db->select("country_list","iso",[
-region =>$region
-]);
+if(count($region_data)==0){
+  $country_data = country_list($exp_country);
+} else {
+  $region = $region_data[0];
+  //get country in same region
+  $country_data = $db->select("country_list","iso",[
+  region =>$region
+  ]);
+}
 
 $count = 0;
 $count2 = 0;

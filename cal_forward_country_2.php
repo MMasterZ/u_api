@@ -5,6 +5,7 @@
 
 require_once('connection.php');
 require_once('sector_data.php');
+require_once('country_list.php');
 
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
@@ -15,14 +16,17 @@ $tableName = $exp_country . "_" . $year;
 $region_data = $db->select("country_list","region",[
 iso =>$exp_country
 ]);
-$region = $region_data[0];
+if(count($region_data)==0){
+  $country_data = country_list($exp_country);
+} else {
+  $region = $region_data[0];
+  //get country in same region
+  $country_data = $db->select("country_list","iso",[
+  region =>$region
+  ]);
+}
 
-//get country in same region
-$country_data = $db->select("country_list","iso",[
-region =>$region
-]);
-
-
+// print_r($country_data);
 for($i=0; $i<count($country_data);$i++){
   $imp_country = $country_data[$i];
   $area = $db->select("country_list","name",["iso"=>$imp_country]);
@@ -30,9 +34,9 @@ for($i=0; $i<count($country_data);$i++){
   $tableName = $imp_country . "_" . $year;
 
   if($sector == 0){
-    $sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " where (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by imp_country" ;
+    $sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " where (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))   group by imp_country" ;
   } else {
-    $sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " where exp_sector = '" . $sector_data[$sector] ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by imp_country" ;
+    $sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " where exp_sector = '" . $sector_data[$sector] ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )   and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))  group by imp_country" ;
   }
   $value = $db->query($sql)->fetchAll();
 
