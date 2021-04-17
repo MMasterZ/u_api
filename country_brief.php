@@ -22,7 +22,7 @@ $tableName = $exp_country . "_" . $year;
 //**************3 *******************/
 //Structure of value-add in global exports
 
-include 'cb3.php';
+// include 'cb3.php';
 
 
 
@@ -47,9 +47,9 @@ include 'cb3.php';
 // $year = 2011;
 // $tableName = $exp_country . "_" . $year;
 // include 'cb6.php';
-// $year = 2017;
-// $tableName = $exp_country . "_" . $year;
-// include 'cb6.php';
+$year = 2017;
+$tableName = $exp_country . "_" . $year;
+include 'cb6.php';
 
 
 

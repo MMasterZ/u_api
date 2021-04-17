@@ -3,10 +3,12 @@
 //*******Current year ************/
 $tableName = $exp_country . "_" .$year;
 //find value
-$sql = "select sum(value) as sum from " . $tableName . " where (variable = 'total_export')";
+$sql = "select sum(value) as sum from " . $tableName . " where (variable = 'total_export')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))";
 $directly = $db->query($sql)->fetchAll();
 $v1=  $directly[0][0];
 
+echo $v1;
+echo "<br>";
 //find value1
 $v2 = 0;
 $country_data = $db->select("country_list","iso");
@@ -20,21 +22,25 @@ for($i=0; $i<count($country_data);$i++){
     }
     
 }
-
+echo $v2;
+echo "<br>";
 //find value_gross
-$sql = "select sum(value) as sum from " . $tableName . " where (variable = 'total_export' )";
+$sql = "select sum(value) as sum from " . $tableName . " where (variable = 'total_export' )  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))";
 $directly = $db->query($sql)->fetchAll();
 $vgross=  $directly[0][0];
-
+echo $vgross;
+echo "<br>";
 $vfinale = ($v1- $v2)/$vgross*100;
 $result5['grossTradeBalance']['current'] = round($vfinale,1);
 
 //2007
 $tableName = $exp_country . "_2007";
 //find value
-$sql = "select sum(value) as sum from " . $tableName . " where (variable = 'total_export')";
+$sql = "select sum(value) as sum from " . $tableName . " where (variable = 'total_export')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))";
 $directly = $db->query($sql)->fetchAll();
 $v1=  $directly[0][0];
+
+;
 
 //find value1
 $v2 = 0;
@@ -50,8 +56,10 @@ for($i=0; $i<count($country_data);$i++){
     
 }
 
+
+
 //find value_gross
-$sql = "select sum(value) as sum from " . $tableName . " where (variable = 'total_export' )";
+$sql = "select sum(value) as sum from " . $tableName . " where (variable = 'total_export' )  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))";
 $directly = $db->query($sql)->fetchAll();
 $vgross=  $directly[0][0];
 
@@ -61,6 +69,6 @@ $result5['grossTradeBalance']['2007'] = round($vfinale,1);
 echo "\n**********5********\n";
 echo json_encode($result5);
 $dataInput = json_encode($result5);
-$db->update("country_brief",["set5"=>$dataInput],["AND"=>["economy"=>$exp_country,"year"=>$year]]);
+// $db->update("country_brief",["set5"=>$dataInput],["AND"=>["economy"=>$exp_country,"year"=>$year]]);
 
 ?>
