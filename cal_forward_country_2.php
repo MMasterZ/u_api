@@ -41,14 +41,20 @@ for($i=0; $i<count($country_data);$i++){
   $value = $db->query($sql)->fetchAll();
 
   if($sector == 0){
-    $value2 = $db->sum($tableName,"value",[
-    variable => ['total_export']
-    ]);
+    $sql2 = "select sum(value) as value  from " . $imp_country . "_" . $year . " where (variable = 'total_export')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))  " ;
+ 
+     $value2 = $db->query($sql2)->fetchAll();
+   $value2 =  $value2[0]['value'];
+    
+    // $value2 = $db->sum($tableName,"value",[
+    // variable => ['total_export']
+    // ]);
   } else {
-    $value2 = $db->sum($tableName,"value",[
-    variable => ['total_export'],
-    exp_sector=>$sector_data[$sector],
-    ]);  
+     $sql2 = "select sum(value) as value  from " . $imp_country . "_" . $year . " where exp_sector = '" . $sector_data[$sector] ."' and (variable = 'total_export')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))  " ;
+ 
+     $value2 = $db->query($sql2)->fetchAll();
+   $value2 =  $value2[0]['value'];
+
   }
 
   for($j=0;$j<count($value);$j++){
@@ -63,6 +69,8 @@ for($i=0; $i<count($country_data);$i++){
      }
     $result[$i][$j]['valueM'] = round($value[$j]['sum'],2);
   }
+
+  // echo "<BR>";
 }
 echo json_encode($result);
 ?>

@@ -4,12 +4,11 @@ $_POST = json_decode(file_get_contents("php://input"),true);
 $exp_country = $_POST['country'];
 $year = $_POST['year'];
 
-$data = $db->delete("country_brief",["AND"=>[
+$data = $db->delete("country_brief",[
     "year"=>$year
-    ]
-]);
+    ]);
 
-$data2 = $db->select("country_list2",["iso"]);
+$data2 = $db->select("country_list",["iso"]);
 for($i=0; $i<count($data2);$i++){
     $data3 = $db->insert("country_brief",[
        "economy"=> $data2[$i]['iso'],
