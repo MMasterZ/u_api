@@ -29,8 +29,7 @@ if($checkExists)
         "country" => $country,
         "organization" => $organization,
         "is_validation" => "0",
-        "is_subscribe" => $is_subscribe,
-        "query" => ""
+        "is_subscribe" => $is_subscribe
     ]);
 
     $headers = "From: " . 'no-reply' . "\r\n";
