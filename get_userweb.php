@@ -1,11 +1,11 @@
 <?php 
 require_once('connection.php');
 
-  $checkdb = $db -> count("user","*");
+  $checkdb = $db -> count("user_account","*");
 
   if($checkdb){
     
-    $getdata = $db -> select('user','*');
+    $getdata = $db -> select('user_account','*',["ORDER"=>"id"]);
       
       for($i = 0;$i < count($getdata);$i++){
 
@@ -13,13 +13,11 @@ require_once('connection.php');
         $result[$i]['email'] = $getdata[$i]['email'];
         $result[$i]['password'] = $getdata[$i]['password'];
         $result[$i]['country'] = $getdata[$i]['country'];
+        $result[$i]['dateTime'] = $getdata[$i]['dateTime'];
         $result[$i]['organization'] = $getdata[$i]['organization'];
-        if($getdata[$i]['subscribe'] == 0){
-          $result[$i]['subscribe'] = 'false';
-        } else {
-          $result[$i]['subscribe'] = 'true';
-        }
-        $result[$i]['datetime'] = $getdata[$i]['datetime'];
+        $result[$i]['is_validation'] =$getdata[$i]['is_validation'];
+        $result[$i]['is_subscribe'] = $getdata[$i]['is_subscribe'];
+        $result[$i]['query'] = $getdata[$i]['query'];
       }
 
       echo json_encode($result);
