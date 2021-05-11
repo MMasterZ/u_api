@@ -21,7 +21,7 @@ $country_data = $db->select("country_list","*");
 
 for($i=0; $i<count($country_data);$i++){
     $exp_country2 = $country_data[$i]['iso'];
-    $tableName2 = $exp_country2 . "_" . $year;
+    $tableName2 = strtolower($exp_country2) . "_" . $year;
     $result[$exp_country2]['region'] = $country_data[$i]['region'];
     $result[$exp_country2]['area'] = $country_data[$i]['area'];
     //Used in export production

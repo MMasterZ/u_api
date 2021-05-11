@@ -30,7 +30,7 @@ for($i=0; $i<count($country_data);$i++){
     $result[$country_data[$i]]['northAmerica']['ratio'] = 0;
     $result[$country_data[$i]]['row']['value'] =0;
     $result[$country_data[$i]]['row']['ratio'] =0;
-    $tableName = $country_data[$i] . "_" . $year;
+    $tableName = strtolower($country_data[$i]) . "_" . $year;
     $sql  = "select sum(value) as sum, imp_country  from " . $tableName . "  
   where (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))    group by imp_country" ;
   $value1 = $db->query($sql)->fetchAll();
@@ -87,7 +87,7 @@ $result[$country_data[$i]]['row']['ratio'] =  round($result[$country_data[$i]]['
     $result['total'] = 0;
 
 for($i=0; $i<count($country_data);$i++){
-    $tableName = $country_data[$i] . "_" . $year;
+    $tableName = strtolower($country_data[$i]) . "_" . $year;
     $sql  = "select sum(value) as sum, imp_country  from " . $tableName . "  
   where (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))   group by imp_country" ;
   $value1 = $db->query($sql)->fetchAll();
@@ -150,7 +150,7 @@ for($i=0; $i<count($country_data);$i++){
     $result[$country_data[$i]]['Public and welfare service']['value'] = 0;
     $result[$country_data[$i]]['Private household service']['value'] = 0;
     
-    $tableName = $country_data[$i] . "_" . $year;
+    $tableName = strtolower($country_data[$i]) . "_" . $year;
     $sql  = "select sum(value) as sum, exp_sector  from " . $tableName . " where (variable = 'DVA_INTrex1' or variable='DVA_INTrex2'  or variable='DVA_INTrex3' ) and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld')) group by exp_sector" ;
     $value1 = $db->query($sql)->fetchAll();
     //add value to sector grouping
@@ -242,7 +242,7 @@ $result2 = array();
     $result['Private household service']['value'] = 0;
     $result2['total'] =0;
     for($i=0; $i<count($country_data);$i++){
-   $tableName = $country_data[$i] . "_" . $year;
+   $tableName = strtolower($country_data[$i]) . "_" . $year;
         $sql  = "select sum(value) as sum, exp_sector  from " . $tableName . " where (variable = 'DVA_INTrex1' or variable='DVA_INTrex2'  or variable='DVA_INTrex3') and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld')) group by exp_sector" ;
         $value1 = $db->query($sql)->fetchAll();
 

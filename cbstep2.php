@@ -19,7 +19,7 @@ $export2 = 0;
 
 for($i=0; $i<count($country_data);$i++){
     $exp_country2 = $country_data[$i];
-    $tableName2 = $exp_country2 . "_" . $year;
+    $tableName2 = strtolower($exp_country2) . "_" . $year;
 
     //Directly consumed
     $sql = "select sum(value) as sum from " . $tableName2 . " where (variable = 'DVA_FIN' or variable='DVA_INT') and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))";

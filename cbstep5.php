@@ -8,7 +8,7 @@ $year = $_POST['year'];
 // $year = 2017;
 
 // set6
-$tableName = $exp_country . "_" . $year;
+$tableName = strtolower($exp_country) . "_" . $year;
 
 
 //backward
@@ -68,7 +68,7 @@ for($i=0;$i<count($backward);$i++){
 
 // end;
  //Set 7
- $tableName = $exp_country . "_" . $year;
+ $tableName = strtolower($exp_country) . "_" . $year;
 $result = array();
 
 //ดึง ชื่อ Section ทั้งหมดออกมา
