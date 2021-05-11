@@ -2,7 +2,7 @@
 require_once('connection.php');
 require_once('sector_data.php');
 $data = json_decode(file_get_contents("php://input"), true);
-$exp_country= $data['exporting'];
+$exp_country=$data['exporting'];
 $source_country = $data['sourcing'];
 $year = $data['year'];
 
@@ -10,7 +10,7 @@ $year = $data['year'];
 // $source_country = 'CHN';
 // $year = 2017;
 
-$tableName = $exp_country . "_" . $year;
+$tableName =  strtolower($exp_country) . "_" . $year;
 
  $sql  = "select sum(value) as sum,  exp_sector from " . $tableName . " where  imp_country = '" . $source_country ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))  group by exp_sector order by sum DESC limit 5" ;
  $backward2 = $db->query($sql)->fetchAll();

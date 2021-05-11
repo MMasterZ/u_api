@@ -31,7 +31,7 @@ foreach($exp_country as $expData){
     foreach($year as $yearData){
         foreach($imp_country as $impData){
             foreach($source_country as $sourceData){
-                $tableName =  $expData . "_" . $yearData;                        
+                $tableName =  strtolower($expData) . "_" . $yearData;                        
                       
                              $sql2  = "select sum(value) as sum,exp_country, imp_country,exp_sector, source_country, year  from " . $tableName . " where (variable = 'fva_yl' )  and imp_country = '". $impData . "' and source_country = '" . $sourceData ."' group by exp_sector" ;
                        

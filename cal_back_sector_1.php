@@ -11,7 +11,7 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $source_country = $_GET['source_country'];
 $year = $_GET['year'];
-$tableName = $exp_country . "_" . $year;
+$tableName = strtolower($exp_country) . "_" . $year;
 
 
 $sql  = "select sum(value) as sum,source_country,exp_country,exp_sector, imp_country  from ". $tableName ."

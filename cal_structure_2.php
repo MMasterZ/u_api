@@ -37,7 +37,7 @@ for($i=0; $i<count($country_data);$i++){
     
      $area = $db->select("country_list","name",["iso"=>$exp_country2]);
      $result[$count]['imp_country'] =$area[0];
-  $table_name = $exp_country2 . "_" . $year;
+  $table_name = strtolower($exp_country2) . "_" . $year;
   /// calculation of imp cons
 if($sector == 0){
     $value1 = $db->sum($table_name,"value",[

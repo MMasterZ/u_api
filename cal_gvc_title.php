@@ -20,7 +20,7 @@
 
 require_once('connection.php');
 
-$country = $_GET['country'];
+$country = strtolower($_GET['country']);
 $year = $_GET['year'];
 $tableName = $country . "_" . $year;
 

@@ -8,8 +8,8 @@ $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 $sector = $_GET['sector'];
 
-$table_name = $exp_country . "_" . $year;
-$table2_name = $imp_country . "_" . $year;
+$table_name = strtolower($exp_country) . "_" . $year;
+$table2_name = strtolower($imp_country) . "_" . $year;
 
 // Forward linkage
 //get region
@@ -34,7 +34,7 @@ for($i=0; $i<count($country_data);$i++){
 
 $area = $db->select("country_list","name",["iso"=>$exp_country2]);
   $result[$count]['country'] =$area[0];
-  $table3_name = $exp_country2 . "_" . $year;
+  $table3_name = strtolower($exp_country2) . "_" . $year;
   
   //Forward
   if($sector == 0){

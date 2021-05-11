@@ -12,7 +12,7 @@ $exp_country = $_GET['exp_country'];
 $source_country = $_GET['source_country'];
 $year = $_GET['year'];
 
-$tableName = $exp_country . "_" . $year;
+$tableName = strtolower($exp_country) . "_" . $year;
 
 
 

@@ -11,7 +11,7 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 $sector = $_GET['sector'];
-$tableName = $exp_country . "_" . $year;
+$tableName = strtolower($exp_country) . "_" . $year;
 
 
 //Imported content in exports

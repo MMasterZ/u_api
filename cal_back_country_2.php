@@ -35,7 +35,7 @@ for($i=0; $i<count($country_data);$i++){
   $imp_country2 = $country_data[$i];
   if($imp_country2 != $imp_country){
     $area = $db->select("country_list","name",["iso"=>$imp_country2]);
-    $tableName = $imp_country2 . "_" . $year;
+    $tableName = strtolower($imp_country2) . "_" . $year;
 
     if($sector == 0){
       $sql  = "select sum(value) as sum, source_country  from " . $tableName . " where (variable = 'fva_yl'  ) and imp_country='" . $imp_country . "' group by source_country" ;

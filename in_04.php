@@ -30,7 +30,7 @@ foreach($exp_country as $expData){
     foreach($year as $yearData){
         foreach($imp_country as $impData){
             foreach($sector as $sectorData){
-                $tableName =  $expData . "_" . $yearData;                        
+                $tableName =  strtolower($expData) . "_" . $yearData;                        
                         if($sectorData != '0'){
                              $sql2  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'DVA_INTrex1' or variable = 'DVA_INTrex2' or variable = 'DVA_INTrex3' )  and imp_country = '". $impData . "' and exp_sector = '" . $sector_data[$sectorData] ."'" ;
                         } else {

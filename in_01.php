@@ -60,7 +60,7 @@ $final10 = [];
 $count = 0;
 foreach($exp_country as $expData){
     foreach($year as $yearData){
-        $tableName =  $expData . "_" . $yearData;
+        $tableName =  strtolower($expData) . "_" . $yearData;
       if(count($sector) > 0){ 
         //สำหรับ Domestic production consumed by the importer
          $sql2  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'DVA_FIN' or variable='DVA_INT' ) ". $impText . $sectorText . " group by imp_country, exp_sector" ;

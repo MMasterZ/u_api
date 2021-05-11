@@ -1,7 +1,7 @@
 <?php
 require_once('connection.php');
 require_once('main_function.php');
-$exp_country = $_GET['exp_country'];
+$exp_country = strtolower($_GET['exp_country']);
 $year = $_GET['year'];
 $tableName = $exp_country . "_" . $year;
 

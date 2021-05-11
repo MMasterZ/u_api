@@ -10,7 +10,7 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 
-$table_name = $exp_country . "_" . $year;
+$table_name = strtolower($exp_country) . "_" . $year;
 
 $value = $db->sum($table_name ,"value",[
     imp_country => $imp_country,

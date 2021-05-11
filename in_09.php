@@ -23,7 +23,6 @@ $sector = $data['sector'];
 
 
 
-
 // echo $sectorText;
 $result = [];
 
@@ -31,7 +30,7 @@ foreach($exp_country as $expData){
     foreach($year as $yearData){
         foreach($imp_country as $impData){
             foreach($sector as $sectorData){
-                $tableName =  $expData . "_" . $yearData;                        
+                $tableName =  strtolower($expData) . "_" . $yearData;                        
                   
                         if($sectorData != '0'){
                             $sql2  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " where (variable = 'total_export' )  and exp_sector = '" . $sector_data[$sectorData]. "' and imp_country ='" . $impData . "'" ;

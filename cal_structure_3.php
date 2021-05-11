@@ -6,8 +6,8 @@ $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 $sector = $_GET['sector'];
-$table_name = $exp_country . "_" . $year;
-$table2_name = $imp_country . "_" . $year;
+$table_name = strtolower($exp_country) . "_" . $year;
+$table2_name = strtolower($imp_country) . "_" . $year;
 
 //*************Blue bar  ********/
 /// calculation of imp_country = $imp_country

@@ -17,35 +17,16 @@ require("Medoo.php");
 // Using Medoo namespace
 use Medoo\Medoo;
  
-// $db = new Medoo([
-// 	// required
-// 	'database_type' => 'mysql',
-// 	'database_name' => 'thaiawes_unescap',
-// 	'server' => 'localhost',
-// 	'username' => 'thaiawes_admin',
-// 	'password' => 'chomart12',
-// ]);
 
-// $db = new Medoo([
-// 	// required
-// 	'database_type' => 'mysql',
-// 	'database_name' => 'unescap',
-// 	'server' => 'localhost',
-// 	'username' => 'root',
-// 	'password' => '12345678',
-// ]);
+
 $db = new Medoo([
 	// required
 	'database_type' => 'mysql',
-	'database_name' => 'new_un',
+	'database_name' => 'unescap',
 	'server' => 'localhost',
-	'username' => 'root',
-	'password' => '12345678',
+	'port'=>3306,
+	'username' => 'admin_unescap',
+	'password' => '@Chomart12',
 ]);
 
-// phpinfo();
-// $database->insert("account", [
-// 	"user_name" => "foo",
-// 	"email" => "foo@bar.com"
-// ]);
 ?>

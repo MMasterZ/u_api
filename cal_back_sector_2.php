@@ -32,7 +32,7 @@ for($j=0;$j<count($country_data);$j++){
     if($exp_country != $imp_country){
     $export_name = $db->select("country_list","name",["iso"=>$exp_country]);
 
-    $tableName = $exp_country . "_" . $year;
+    $tableName = strtolower($exp_country) . "_" . $year;
     $value2 = $db->sum($tableName,"value",[
         imp_country => $imp_country,
         variable => ['total_export']

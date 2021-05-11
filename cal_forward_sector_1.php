@@ -9,7 +9,7 @@ require_once('sector_data.php');
 $imp_country = $_GET['imp_country'];
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
-$table_name = $exp_country . "_" . $year;
+$table_name = strtolower($exp_country) . "_" . $year;
 
 
 $sql  = "select sum(value) as sum,exp_sector  from " . $table_name ." 

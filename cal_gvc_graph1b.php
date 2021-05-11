@@ -10,7 +10,7 @@ $year = $data['year'];
 // $exp_country= 'THA';
 // $sector = 'metals';
 // $year = 2017;
-$tableName = $exp_country . "_" . $year;
+$tableName = strtolower($exp_country) . "_" . $year;
  $sector_full = $db->select("sector_data","name",["shortname"=>$sector]);
 
  $sql  = "select sum(value) as sum,  imp_country from " . $tableName . " where exp_sector = '" . $sector_full[0] ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))   group by imp_country order by sum DESC " ;

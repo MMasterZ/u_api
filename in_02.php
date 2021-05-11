@@ -29,7 +29,7 @@ foreach($exp_country as $expData){
     foreach($year as $yearData){
         foreach($imp_country as $impData){
             foreach($sector as $sectorData){
-                $tableName =  $expData . "_" . $yearData;
+                $tableName =  strtolower($expData) . "_" . $yearData;
                         
                         if($sectorData != '0'){
                              $sql2  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'DVA_FIN' or variable='DVA_INT' )  and imp_country = '". $impData . "' and exp_sector = '" . $sector_data[$sectorData] ."'" ;
@@ -41,7 +41,7 @@ foreach($exp_country as $expData){
                         $value = $value2[0][0];
                
                         
-                $tableName =  $expData . "_" . $yearData;
+                $tableName =  strtolower($expData) . "_" . $yearData;
                         
                         if($sectorData != '0'){
                              $sql2  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName . " where (variable = 'total_export' )  and imp_country = '". $impData . "' and exp_sector = '" . $sector_data[$sectorData] ."'" ;
@@ -53,7 +53,7 @@ foreach($exp_country as $expData){
                         $value_gross = $value4[0][0];
                  
 
-                  $tableName2 =  $impData . "_" . $yearData;       
+                  $tableName2 =  strtolower($impData) . "_" . $yearData;       
                     if($sectorData != '0'){
                              $sql2  = "select sum(value) as sum,exp_country, imp_country,exp_sector, year  from " . $tableName2 . " where (variable = 'DVA_FIN' or variable='DVA_INT' )  and imp_country = '". $expData . "' and exp_sector = '" . $sector_data[$sectorData] ."'" ;
                         } else {

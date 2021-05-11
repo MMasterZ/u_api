@@ -1,7 +1,7 @@
 <?php
 require_once('connection.php');
 
-$exp_country = $_GET['exp_country'];
+$exp_country = strtolower($_GET['exp_country']);
 $year = $_GET['year'];
 $tableName = $exp_country . "_" . $year;
 
@@ -10,6 +10,7 @@ $tableName = $exp_country . "_" . $year;
 //backward
 $sql  = "select sum(value) as sum, exp_sector from " . $tableName . " where (variable = 'fva_yl' )  group by exp_sector order by sum DESC limit 10" ;
 $backward = $db->query($sql)->fetchAll();
+
 
 for($i=0;$i<count($backward);$i++){
     $sector = $backward[$i]['exp_sector'];

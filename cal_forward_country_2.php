@@ -10,7 +10,7 @@ require_once('country_list.php');
 $exp_country = $_GET['exp_country'];
 $year = $_GET['year'];
 $sector = $_GET['sector'];
-$tableName = $exp_country . "_" . $year;
+$tableName = strtolower($exp_country) . "_" . $year;
 
 //get region
 $region_data = $db->select("country_list","region",[
@@ -31,7 +31,7 @@ for($i=0; $i<count($country_data);$i++){
   $imp_country = $country_data[$i];
   $area = $db->select("country_list","name",["iso"=>$imp_country]);
   // $result[$i]['country'] =$area[0];
-  $tableName = $imp_country . "_" . $year;
+  $tableName = strtolower($imp_country) . "_" . $year;
 
   if($sector == 0){
     $sql  = "select sum(value) as sum,exp_country, imp_country  from " . $tableName . " where (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))   group by imp_country" ;
@@ -41,7 +41,7 @@ for($i=0; $i<count($country_data);$i++){
   $value = $db->query($sql)->fetchAll();
 
   if($sector == 0){
-    $sql2 = "select sum(value) as value  from " . $imp_country . "_" . $year . " where (variable = 'total_export')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))  " ;
+    $sql2 = "select sum(value) as value  from " . strtolower($imp_country) . "_" . $year . " where (variable = 'total_export')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))  " ;
  
      $value2 = $db->query($sql2)->fetchAll();
    $value2 =  $value2[0]['value'];
@@ -50,7 +50,7 @@ for($i=0; $i<count($country_data);$i++){
     // variable => ['total_export']
     // ]);
   } else {
-     $sql2 = "select sum(value) as value  from " . $imp_country . "_" . $year . " where exp_sector = '" . $sector_data[$sector] ."' and (variable = 'total_export')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))  " ;
+     $sql2 = "select sum(value) as value  from " . strtolower($imp_country) . "_" . $year . " where exp_sector = '" . $sector_data[$sector] ."' and (variable = 'total_export')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))  " ;
  
      $value2 = $db->query($sql2)->fetchAll();
    $value2 =  $value2[0]['value'];
