@@ -94,17 +94,17 @@ foreach($exp_country as $expData){
                             array_push($result,$temp);
                              $temp['value'] = round(($value1A),2);
                             $temp['indicator_sub_name'] = "Domestic production used in the importer's exports (forward linkages)";
-                             $temp['indicator_main_name'] = "GVC praticipation in $US";
+                             $temp['indicator_main_name'] = 'GVC praticipation in $US';
                             $temp['unit'] = '$US millions';
                             array_push($result,$temp);
                             $temp['value'] = round(($value1B),2);
                             $temp['indicator_sub_name'] = "Foreign production consumed by the importer (backward linkages)";
-                            $temp['indicator_main_name'] = "GVC praticipation in $US";
+                            $temp['indicator_main_name'] = 'GVC praticipation in $US';
                             $temp['unit'] = '$US millions';
                             array_push($result,$temp);
                             $temp['value'] = round(($value1C),2);
                             $temp['indicator_sub_name'] = "Double counted";
-                            $temp['indicator_main_name'] = "GVC praticipation in $US";
+                            $temp['indicator_main_name'] = 'GVC praticipation in $US';
                             $temp['unit'] = '$US millions';
                             array_push($result,$temp);
                      

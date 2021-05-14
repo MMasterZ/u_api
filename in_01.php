@@ -173,7 +173,7 @@ foreach($exp_country as $expData){
              array_push($result,$temp);
         }
 
-           //สำหรับ Domestic production that reutrns via the importer's exports 
+           //สำหรับ Domestic production that returns via the importer's exports 
         $sql  = "select sum(value) as sum,exp_country, imp_country, year  from " . $tableName . " where (variable = 'RDV_FIN1'  or variable='RDV_FIN2' or variable='RDV_INT'  ) ". $impText . " group by imp_country" ;
         $value = $db->query($sql)->fetchAll();
         $final08 = array_merge($final08,$value);
@@ -184,7 +184,7 @@ foreach($exp_country as $expData){
             $temp['imp_country'] = $final08[$i]['imp_country'];
             $temp['value'] = round($final08[$i][0],2);
             $temp['year'] = $yearData;
-            $temp['indicator_name'] = "Domestic production that reutrns via the importer's exports ";
+            $temp['indicator_name'] = "Domestic production that returns via the importer's exports ";
             $temp['unit'] = '$ US millions';
             array_push($result,$temp);
         }
