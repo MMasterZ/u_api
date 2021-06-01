@@ -13,7 +13,7 @@ $table_name = strtolower($exp_country) . "_" . $year;
 
 
 $sql  = "select sum(value) as sum,exp_sector  from " . $table_name ." 
-where imp_country = '". $imp_country  ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by exp_sector" ;
+where imp_country = '". $imp_country  ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' or variable='RDV_FIN1'  or variable='RDV_FIN2'  or variable='RDV_INT' )  group by exp_sector" ;
 $value = $db->query($sql)->fetchAll();
 
 $result[0]['id'] = "A";

@@ -11,12 +11,12 @@ $table_name = strtolower($exp_country) . "_" . $year;
 if($sector == 0){
     $value = $db->sum($table_name,"value",[
     imp_country => $imp_country,
-    variable => ['DVA_FIN', 'DVA_INT']
+    variable => [ 'DVA_INT']
 ]);
 } else {
     $value = $db->sum($table_name,"value",[
     imp_country => $imp_country,
-    variable => ['DVA_FIN', 'DVA_INT'],
+    variable => [ 'DVA_INT'],
     exp_sector=>$sector_data[$sector],
   ]);  
 }
@@ -69,6 +69,8 @@ if($sector == 0){
 $result['double'] = round($value,2);
 
 
+
+
 /// Calculation of imp cont
 if($sector == 0){
     $value = $db->sum($table_name,"value",[
@@ -83,6 +85,21 @@ if($sector == 0){
   ]);  
 }
 $result['imp_cont'] = round($value,2);
+
+/// Calculation of final domestice production
+if($sector == 0){
+    $value = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['DVA_FIN' ]
+]);
+} else {
+    $value = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['DDC_FIN'],
+    exp_sector=>$sector_data[$sector],
+  ]);  
+}
+$result['final'] = round($value,2);
 
 //Gross exports to import country
 if($sector == 0){

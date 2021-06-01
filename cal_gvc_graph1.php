@@ -46,7 +46,7 @@ for($i=0;$i<count($backward);$i++){
     $sector = $backward[$i]['exp_sector'];
      $sector_short = $db->select("sector_data","shortname",["name"=>$sector]);
     //extra cal -a-1
-    $sql  = "select sum(value) as sum from " . $tableName . " where  exp_sector = '" . $sector ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))" ;
+    $sql  = "select sum(value) as sum from " . $tableName . " where  exp_sector = '" . $sector ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' or variable='RDV_FIN1' or variable='RDV_FIN2' or variable='RDV_INT')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))" ;
     $backward_a_1 = $db->query($sql)->fetchAll();
 
     //extra cal -a-2
@@ -54,7 +54,7 @@ for($i=0;$i<count($backward);$i++){
     $backward_a_2 = $db->query($sql)->fetchAll();
 
     //extra cal -b-1
-    $sql  = "select sum(value) as sum from " . $tableName . " where exp_sector = '" . $sector ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3')   and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))" ;
+    $sql  = "select sum(value) as sum from " . $tableName . " where exp_sector = '" . $sector ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' or variable='RDV_FIN1' or variable='RDV_FIN2' or variable='RDV_INT')   and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))" ;
     $backward_b_1 = $db->query($sql)->fetchAll();
     $result2[$i]['sector'] = $sector_short[0];
     $result2[$i]['precent'] = round($backward_a_1[0]['sum']/$backward_a_2[0]['sum']*100,2);

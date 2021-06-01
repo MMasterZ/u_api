@@ -12,7 +12,7 @@ $year = $data['year'];
 
 $tableName =  strtolower($exp_country) . "_" . $year;
 
- $sql  = "select sum(value) as sum,  exp_sector from " . $tableName . " where  imp_country = '" . $source_country ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))  group by exp_sector order by sum DESC limit 5" ;
+ $sql  = "select sum(value) as sum,  exp_sector from " . $tableName . " where  imp_country = '" . $source_country ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' or variable='RDV_FIN1' or variable='RDV_FIN2' or variable='RDV_INT')  and ( imp_country NOT IN ('sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'))  group by exp_sector order by sum DESC limit 5" ;
  $backward2 = $db->query($sql)->fetchAll();
 
  for($i=0;$i<=4;$i++){

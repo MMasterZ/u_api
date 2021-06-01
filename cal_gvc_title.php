@@ -42,7 +42,7 @@ $total = $db->sum($tableName,"value",[
 
 $export1 = $db->sum($tableName,"value",[
      "AND"=>[
-    variable => ['DVA_INTrex1', 'DVA_INTrex2','DVA_INTrex3'],
+    variable => ['DVA_INTrex1', 'DVA_INTrex2','DVA_INTrex3', 'RDV_FIN1', 'RDV_FIN2', 'RDV_INT'],
     "imp_country[!]"=>['sea', 'nca', 'sswa', 'enea', 'pac', 'ap', 'euz', 'eur', 'apta', 'saarc', 'nafta', 'mercosur', 'cptpp', 'rcep', 'apec', 'lac', 'pac_alliance', 'fealac', 'bimstec', 'wld'],
     ]
 ]);

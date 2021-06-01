@@ -41,7 +41,7 @@ if($exp_country != $imp_country){
 
     $sector = $db->select("sector_data","*",[]);
 
-    $sql  = "select sum(value) as sum,exp_sector from ". $tableName ." where  imp_country = '". $imp_country  ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' )  group by exp_sector" ;
+    $sql  = "select sum(value) as sum,exp_sector from ". $tableName ." where  imp_country = '". $imp_country  ."' and (variable = 'DVA_INTrex1' or variable='DVA_INTrex2' or variable='DVA_INTrex3' or variable='RDV_FIN1'  or variable='RDV_FIN2'  or variable='RDV_INT' )  group by exp_sector" ;
 
     $value = $db->query($sql)->fetchAll();
 

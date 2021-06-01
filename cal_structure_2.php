@@ -30,6 +30,7 @@ for($i=0; $i<count($country_data);$i++){
   $value3 =0;
   $value4 = 0;
   $value5=0;
+  $value6=0;
   $exp_country2 = $country_data[$i];
  
  
@@ -42,12 +43,12 @@ for($i=0; $i<count($country_data);$i++){
 if($sector == 0){
     $value1 = $db->sum($table_name,"value",[
     imp_country=>$imp_country,
-    variable => ['DVA_FIN', 'DVA_INT']
+    variable => [ 'DVA_INT']
 ]);
 } else {
     $value1 = $db->sum($table_name,"value",[
     imp_country => $imp_country,
-    variable => ['DVA_FIN', 'DVA_INT'],
+    variable => ['DVA_INT'],
     exp_sector=>$sector_data[$sector],
   ]);  
 }
@@ -112,7 +113,21 @@ if($sector == 0){
     exp_sector=>$sector_data[$sector],
   ]);  
 }
- $total = $value1 + $value2 + $value3 + $value4 +$value5;
+
+/// Calculation of final
+if($sector == 0){
+    $value6 = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['DVA_FIN'  ]
+]);
+} else {
+    $value6 = $db->sum($table_name,"value",[
+    imp_country => $imp_country,
+    variable => ['DVA_FIN' ],
+    exp_sector=>$sector_data[$sector],
+  ]);  
+}
+ $total = $value1 + $value2 + $value3 + $value4 +$value5 + $value6;
 //  echo $total . "--";
   if($total > 0.005){
    
@@ -126,6 +141,8 @@ if($sector == 0){
      $result[$count]['double']['value'] = round($value4,2);
     $result[$count]['imp_cont']['precent'] = round($value5/$total*100,2);
     $result[$count]['imp_cont']['value'] = round($value5,2);
+    $result[$count]['final']['precent'] = round($value6/$total*100,2);
+    $result[$count]['final']['value'] = round($value6,2);
     $count +=1;
   } 
   // }

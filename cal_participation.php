@@ -96,9 +96,30 @@ $area = $db->select("country_list","name",["iso"=>$exp_country2]);
   where imp_country='" . $imp_country. "'and exp_sector = '" . $sector_data[$sector] . "' and (variable = 'DDC_FIN' or variable='DDC_INT' or variable='MDC' or variable='ODC' ) " ;
   $value4 = $db->query($sql)->fetchAll(); 
   }
+
+ 
    $result[$count]['double_v'] = round($value4[0]['sum'],2);
   $result[$count]['double'] = round($value4[0]['sum']/$value2[0]['sum']*100,2);
-  $result[$count]['totalGVC'] = round(($value4[0]['sum'] + $value1[0]['sum'] +$value3[0]['sum'])/$value2[0]['sum']*100,2);
+
+  //final
+  if($sector == 0){
+  $sql  = "select sum(value) as sum  from " . $table3_name . "  
+  where imp_country='" . $imp_country. "' and (variable = 'RDV_FIN1' or variable='RDV_FIN2' or variable='RDV_INT' ) " ;
+  $value5 = $db->query($sql)->fetchAll();
+
+
+  } else {
+
+     $sql  = "select sum(value) as sum  from " . $table3_name . "  
+  where imp_country='" . $imp_country. "'and exp_sector = '" . $sector_data[$sector] . "' and (variable = 'RDV_FIN1' or variable='RDV_FIN2' or variable='RDV_INT'  ) " ;
+  $value5 = $db->query($sql)->fetchAll(); 
+  }
+    $result[$count]['final_v'] = round($value5[0]['sum'],2);
+  $result[$count]['final'] = round($value5[0]['sum']/$value2[0]['sum']*100,2);
+
+  $result[$count]['totalGVC'] = round(($value4[0]['sum'] + $value5[0]['sum'] + $value1[0]['sum'] +$value3[0]['sum'])/$value2[0]['sum']*100,2);
+
+
   $count++;
     }
 }
